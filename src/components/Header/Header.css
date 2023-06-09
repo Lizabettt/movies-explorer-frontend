@@ -1,0 +1,79 @@
+.header {
+    margin: 70px 18px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.header__logo {
+   
+}
+
+.header__logo-pic {
+    width: 38px;
+    height: 38px;
+}
+
+.header__box {
+    display: flex;
+    align-items: center;
+    
+}
+
+.header__navigation-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 0;
+    padding-inline: 0;
+    list-style: none;
+    gap: 30px;
+
+}
+.header__navigation-link{
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #000;
+    border-radius: 3px;
+}
+/* .header__box-films {
+    display: flex;
+    gap: 16px;
+    
+font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+
+
+
+} */
+
+.header__box-account-menu {
+    display: flex;
+    gap: 30px;
+}
+
+
+.header__navigation-item {
+    font-size: 12px;
+    background-color:#FFF;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+   
+}
+
+.header__navigation-account {
+
+    font-size: 14px;
+    background-color: #F9F9F9;
+    width: 100px;
+    height: 36px;
+
+}
+
+.header__navigation-item-burger {
+
+    background-color: #FFF;
+    width: 44px;
+    height: 44px;
+}
