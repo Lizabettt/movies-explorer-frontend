@@ -7,7 +7,6 @@
     flex-direction: column;
 
     align-items: center;
-
 }
 
 .promo-title {
@@ -17,6 +16,7 @@
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
+    letter-spacing: -0.04em;
     padding: 160px 235px 0 235px;
     text-align: center;
 }

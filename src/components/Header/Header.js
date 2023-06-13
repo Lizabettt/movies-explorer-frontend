@@ -2,9 +2,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 import './Header.css';
 import logo from '../../images/logo.svg';
-import menu from '../../images/menu.svg';
+import Navigation from '../Navigation/Navigation';
 
-export default function Header({ isOpen }) {
+export default function Header() {
   const location = useLocation();
 
   return (
@@ -13,7 +13,7 @@ export default function Header({ isOpen }) {
         <img className='header__logo-pic' src={logo} alt='Логотип' />
       </Link>
       <div className='header__box'>
-        {location.pathname === '/signin' && (
+        {location.pathname === '/' ? (
           <ul className='header__navigation-items'>
             <li className='header__navigation-item'>
               <Link className='header__navigation-link btn' to='/signup'>
@@ -26,36 +26,8 @@ export default function Header({ isOpen }) {
               </Link>
             </li>
           </ul>
-        )}
-        {location.pathname === '/' && (
-          <ul className='header__navigation-items'>
-            <li className='header__navigation-item'>
-              <Link className='header__navigation-item-films' to='/movies'>
-                Фильмы
-              </Link>
-
-              <Link
-                className='header__navigation-item-films'
-                to='/saved-movies'
-              >
-                Сохранённые фильмы
-              </Link>
-            </li>
-
-            <li className='header__navigation-item'>
-              <Link className='header__navigation-account btn' to='/profile'>
-                {' '}
-                Аккаунт
-              </Link>
-
-              <button
-                className='header__navigation-item-burger btn'
-                onClick={isOpen}
-                             >
-                <img src={menu} alt='Бургер меню>' />
-              </button>
-            </li>
-          </ul>
+        ) : (
+          <Navigation />
         )}
       </div>
     </header>

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -9,50 +9,49 @@ import Register from '../Register/Register';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import NotFound from '../NotFound/NotFound';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import ProtectedRouteElement from '../ProtectedRoute';
+// import ProtectedRouteElement from '../ProtectedRoute';
 
 export default function App() {
-
   const [currentUser, setCurrentUser] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
-  
   return (
-    <div>
-      <CurrentUserContext.Provider value={currentUser}>
-        <div className='page'>
-          <Header
-          //onExit={handleExit}
-          // email={emailUserHeader}
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header
+      //onExit={handleExit}
+      // email={emailUserHeader}
+      />
+      <main className='main'>
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route
+            path='/signin'
+            element={
+              <Login />
+              // onLogin={handleLogin}
+            }
           />
-          <Routes>
-            <Route
-              path='/signin'
-              element={
-                <Login />
-                // onLogin={handleLogin}
-                
-              }
-            />
-            <Route
-              path='/signup'
-              element={
-                <Register
-                // onRegister={handleRegister}
-                />
-              }
-            />
-             <Route path='/' element={<Main />} /> 
-            <Route path='*' element={<Navigate to='/' replace />} />
-            <Route path='/movies' element={<Movies />} />
-            <Route path='/saved-movies' element={<SavedMovies />} />
-            <Route path='/profile' element={<Profile />} />
-          </Routes>
-           <Footer /> 
-        </div>
-        {/* <EditProfilePopup
+          <Route
+            path='/signup'
+            element={
+              <Register
+              // onRegister={handleRegister}
+              />
+            }
+          />
+
+          <Route path='*' element={<NotFound />} />
+          <Route path='/movies' element={<Movies />} />
+          <Route path='/saved-movies' element={<SavedMovies />} />
+          <Route path='/profile' element={<Profile />} />
+        </Routes>
+      </main>
+      <Footer />
+
+      {/* <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
@@ -83,7 +82,6 @@ export default function App() {
             isOpen={isInfoTooltipPopupOpen}
             onClose={closeAllPopups}
             luckRegister={luckRegister}  />  */}
-      </CurrentUserContext.Provider>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }

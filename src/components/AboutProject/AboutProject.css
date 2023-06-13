@@ -1,0 +1,57 @@
+.aboutProject {
+    padding: 110px 70px 96px 70px;
+    text-align: start;
+}
+
+.aboutProject__info {
+    display: grid;
+    column-gap: 40px;
+    grid-template-columns: repeat(2, auto);
+}
+
+.aboutProject__info-title {
+    margin-block: 0;
+    padding-top: 70px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+}
+
+.aboutProject__progressLine {
+    display: grid;
+    grid-template-columns: 20% auto;
+    font-size: 14px;
+    line-height: 17px;
+
+}
+
+.aboutProject__progressLine:first-child {}
+
+.aboutProject__progressLine_week {
+    height: 36px;
+    background-color: #2BE080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aboutProject__progressLine_week-type-light {
+    background-color: #F2F2F2;
+}
+
+.aboutProject__progressLine_week-text {
+    margin-block: 0;
+    font-weight: 400;
+}
+
+.aboutProject__progressLine_boxText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aboutProject__progressLine_boxText-text {
+    color: #A0A0A0;
+    font-weight: 500;
+}

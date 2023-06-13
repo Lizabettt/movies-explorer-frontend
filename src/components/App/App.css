@@ -1,5 +1,5 @@
-.page{
-    background-color:#FFF;
+.page {
+    background-color: #FFF;
     color: #000;
     margin: 0 auto;
     max-width: 1280px;
@@ -8,13 +8,35 @@
     font-family: 'Inter', sans-serif;
     font-style: normal;
 }
-.btn{
+
+.btn {
     line-height: 16px;
     color: #000;
     text-decoration: none;
     padding: 0;
     border: none;
 }
+
 .btn:hover {
     background-color: #2BE080;
+}
+
+.section-title {
+    margin-block: 0;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    padding-bottom: 23px;
+    border-bottom: 1px #000 solid;
+}
+
+.section__subtitle {
+    margin-block: 0;
+    padding-top: 26px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 110px;
+    max-width: 500px;
 }
