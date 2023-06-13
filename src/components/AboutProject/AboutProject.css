@@ -1,5 +1,5 @@
 .aboutProject {
-    padding: 110px 70px 96px 70px;
+
     text-align: start;
 }
 
@@ -52,6 +52,22 @@
 }
 
 .aboutProject__progressLine_boxText-text {
+    margin-block: 0;
+    padding-top: 23px;
     color: #A0A0A0;
     font-weight: 500;
+}
+
+@media screen and (max-width: 770px) {
+    .aboutProject__progressLine_boxText-text {
+        padding-top: 14px;
+    }
+
+    .aboutProject__info {
+        column-gap: 30px;
+    }
+
+    .aboutProject__progressLine {
+        grid-template-columns: 21% auto;
+    }
 }

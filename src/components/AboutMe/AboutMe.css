@@ -1,7 +1,3 @@
-.aboutMe {
-    padding: 110px 70px 100px 70px;
-}
-
 .aboutMe__box {
     padding-top: 66px;
     display: flex;
@@ -44,4 +40,38 @@
     padding-top: 99px;
     font-size: 14px;
     line-height: 17px;
+}
+
+.aboutMe__foto {
+    object-fit: contain;
+}
+
+@media screen and (max-width: 770px) {
+    .aboutMe__box-name {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    .aboutMe__info {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .aboutMe__text {
+        padding-top: 20px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .aboutMe__linkGithub {
+        padding-top: 87px;
+    }
+
+    .aboutMe__box {
+        gap: 56px;
+    }
+
+    .aboutMe__foto {
+        max-width: 255px;
+    }
 }

@@ -2,7 +2,7 @@ import './Portfolio.css';
 import link from '../../images/link.svg';
 export default function Portfolio() {
   return (
-    <section className='portfolio'>
+    <section className='portfolio section'>
       <h2 className='portfolio__title'>Портфолио</h2>
       <div className='portfolio__box'>
         <ul className='portfolio__nameLinks'>

@@ -1,5 +1,4 @@
 .techs {
-    padding: 100px 70px 110px 70px;
     background-color: #F5F5F5;
     letter-spacing: -0.04em;
 }
@@ -44,4 +43,21 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+@media screen and (max-width: 770px) {
+    .techs__title-big {
+        padding-top: 80px;
+    }
+
+    .techs__item {
+        width: 84px;
+        height: 57px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .techs__box {
+        padding-bottom: 10px;
+    }
 }

@@ -45,3 +45,14 @@
     font-size: 13px;
     line-height: 16px;
 }
+@media screen and (max-width: 770px) {
+    .footer {
+        padding: 79px 30px 20px 30px;
+    }
+    .footer__title{
+        padding-bottom: 18px;
+    }
+    .footer__box{
+        padding-bottom: 18px;
+    }
+}

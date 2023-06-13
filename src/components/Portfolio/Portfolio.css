@@ -1,5 +1,5 @@
 .portfolio {
-    padding: 0 70px 125px 70px;
+    padding-top: 0;
 }
 
 .portfolio__title {
@@ -46,3 +46,10 @@
 }
 
 .portfolio__pic {}
+
+@media screen and (max-width: 770px) {
+    .portfolio__nameLink-text {
+        font-size: 28px;
+        line-height: 50px;
+    }
+}

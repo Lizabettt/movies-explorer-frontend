@@ -29,3 +29,8 @@
     display: flex;
 
 }
+@media screen and (max-width: 770px) {
+    .navTab__btns {
+        padding-top: 314px;
+    }
+}
