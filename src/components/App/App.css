@@ -33,7 +33,7 @@
     border-bottom: 1px #000 solid;
 }
 
-.section__subtitle {
+.section-subtitle {
     margin-block: 0;
     padding-top: 26px;
     font-weight: 400;
@@ -47,16 +47,32 @@
     .section{
         padding: 90px 50px;
     }
-    .section__title {
+    .section-title {
         font-size: 20px;
         line-height: 24px;
     }
 
-    .section__subtitle {
+    .section-subtitle {
         font-size: 12px;
         line-height: 18px;
         padding-top: 22px;
         padding-bottom: 93px;
     }
 
+}
+@media screen and (max-width: 330px) {
+    .section{
+        padding: 70px 18px;
+    }
+    .section-title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 27px;
+    }
+    .section-subtitle {
+    font-size: 11px;
+line-height: 16px;
+padding-top: 16px;
+        padding-bottom: 58px;
+    }
 }

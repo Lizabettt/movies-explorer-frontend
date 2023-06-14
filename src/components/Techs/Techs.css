@@ -61,3 +61,15 @@
         padding-bottom: 10px;
     }
 }
+@media screen and (max-width: 330px) {
+    .techs__items {
+        flex-wrap: wrap;
+        max-width: 180px;
+    }
+    .techs__title-big {
+        font-size: 30px;
+line-height: 36px;
+padding-top: 60px;
+padding-bottom: 10px;
+    }
+}

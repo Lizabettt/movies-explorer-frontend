@@ -71,3 +71,26 @@
         grid-template-columns: 21% auto;
     }
 }
+
+@media screen and (max-width: 330px) {
+    .aboutProject__info {
+        grid-template-columns: 1fr;
+        padding-top: 60px;
+    }
+
+    .aboutProject__info-title {
+        padding: 0;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .aboutProject__progressLine {
+        grid-template-columns: 35% auto;
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .aboutProject__progressLine_boxText-text {
+        padding-top: 10px;
+    }
+}

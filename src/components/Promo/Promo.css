@@ -32,3 +32,13 @@
         line-height: 52px;
     }
 }
+@media screen and (max-width: 330px) {
+    .promo {
+        margin: 14px 14px 0 14px;
+    }
+    .promo-title {
+        padding: 220px 0 0 0;
+        font-size: 29px;
+        line-height: 37px;
+    }
+}

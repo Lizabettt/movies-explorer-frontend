@@ -61,8 +61,27 @@
     width: 44px;
     height: 44px;
 }
+
 @media screen and (max-width: 770px) {
     .header {
         margin: 18px 30px 35px 30px;
-        }        
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .header {
+        margin: 18px 14px 29px 14px;
+    }
+
+    .header__navigation-items {
+        gap: 4px;
+    }
+
+    .header__navigation-item {
+        font-size: 10px;
+        line-height: 16px;
+    }
+    .header__navigation-link {
+        padding: 5px 12px;
+    }
 }

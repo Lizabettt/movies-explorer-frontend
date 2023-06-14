@@ -12,8 +12,9 @@ export default function Portfolio() {
               className='portfolio__link'
               href='https://github.com/Lizabettt/how-to-learn'
               target='_blank'
+              rel="noreferrer"
             >
-              <img classMame='portfolio__pic' src={link} alt='ссылка' />
+              <img className='portfolio__pic' src={link} alt='ссылка' />
             </a>
           </li>
           <li className='portfolio__nameLink'>
@@ -22,8 +23,9 @@ export default function Portfolio() {
               className='portfolio__link'
               href='https://lizabettt.github.io/russian-travel/'
               target='_blank'
+              rel="noreferrer"
             >
-              <img classMame='portfolio__pic' src={link} alt='ссылка' />
+              <img className='portfolio__pic' src={link} alt='ссылка' />
             </a>
           </li>
           <li className='portfolio__nameLink'>
@@ -34,8 +36,9 @@ export default function Portfolio() {
               className='portfolio__link'
               href='https://github.com/Lizabettt/react-mesto-api-full-gha'
               target='_blank'
+              rel="noreferrer"
             >
-              <img classMame='portfolio__pic' src={link} alt='ссылка' />
+              <img className='portfolio__pic' src={link} alt='ссылка' />
             </a>
           </li>
         </ul>

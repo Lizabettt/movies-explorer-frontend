@@ -69,9 +69,38 @@
 
     .aboutMe__box {
         gap: 56px;
+        padding-top: 62px;
     }
 
     .aboutMe__foto {
         max-width: 255px;
+    }
+}
+@media screen and (max-width: 330px) {
+    .aboutMe{
+        padding: 70px 14px;
+    }
+    .aboutMe__box {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+    .aboutMe__foto {
+        max-width: 292px;
+    }
+    .aboutMe__box-name{
+        font-size: 30px;
+line-height: 36px;
+    }
+    .aboutMe__info{
+        font-size: 11px;
+line-height: 16px;
+padding-top: 20px;
+    }
+    .aboutMe__text{
+        font-size: 11px;
+line-height: 16px;
+    }
+    .aboutMe__linkGithub {
+        padding-top: 40px;
     }
 }

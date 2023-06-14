@@ -9,7 +9,7 @@ export default function AboutProject() {
           <h3 className='aboutProject__info-title'>
             Дипломный проект включал 5 этапов
           </h3>
-          <p className='section__subtitle'>
+          <p className='section-subtitle'>
             Составление плана, работу над бэкендом, вёрстку, добавление
             функциональности и финальные доработки.
           </p>
@@ -18,7 +18,7 @@ export default function AboutProject() {
           <h3 className='aboutProject__info-title'>
             На выполнение диплома ушло 5 недель
           </h3>
-          <p className='section__subtitle'>
+          <p className='section-subtitle'>
             У&nbsp;каждого этапа был мягкий и&nbsp;жёсткий дедлайн, которые
             нужно было соблюдать, чтобы успешно защититься.
           </p>
