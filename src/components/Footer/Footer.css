@@ -1,5 +1,5 @@
 .footer {
-    padding: 79px 70px 20px 70px;
+    padding: 95px 70px 20px 70px;
     display: flex;
     flex-direction: column;
     font-weight: 400;
@@ -44,11 +44,11 @@
 
 @media screen and (max-width: 770px) {
     .footer {
-        padding: 79px 30px 20px 30px;
+        padding: 79px 25px 20px 35px;
     }
 
     .footer__title {
-        padding-bottom: 18px;
+        padding-bottom: 22px;
     }
 
     .footer__box {
@@ -68,7 +68,7 @@
     }
 
     .footer__box {
-        padding-top: 32px;
+        padding-top: 30px;
         flex-direction: column-reverse;
         align-items: center;
     }

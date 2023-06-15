@@ -47,16 +47,17 @@
     .section{
         padding: 90px 50px;
     }
-    .section-title {
+    /* .section-title {
         font-size: 20px;
         line-height: 24px;
-    }
+    } */
 
     .section-subtitle {
         font-size: 12px;
         line-height: 18px;
         padding-top: 22px;
         padding-bottom: 93px;
+        max-width: 450px;
     }
 
 }

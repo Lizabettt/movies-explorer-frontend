@@ -45,6 +45,9 @@
 .aboutMe__foto {
     object-fit: contain;
 }
+.aboutMe__foto {
+    max-width: 270px;
+}
 
 @media screen and (max-width: 770px) {
     .aboutMe__box-name {
@@ -76,7 +79,8 @@
         max-width: 255px;
     }
 }
-@media screen and (max-width: 330px) {
+
+@media screen and (max-width: 600px) {
     .aboutMe{
         padding: 70px 14px;
     }

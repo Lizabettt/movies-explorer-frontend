@@ -1,6 +1,7 @@
 .techs {
     background-color: #F5F5F5;
     letter-spacing: -0.04em;
+    margin-top: -10px;
 }
 
 .techs__title-big {
@@ -46,6 +47,10 @@
 }
 
 @media screen and (max-width: 770px) {
+    .techs{
+        margin-top: 0;
+
+    }
     .techs__title-big {
         padding-top: 80px;
     }
@@ -61,11 +66,14 @@
         padding-bottom: 10px;
     }
 }
-@media screen and (max-width: 330px) {
-    .techs__items {
+@media screen and (max-width: 680px) {
+     .techs__items {
         flex-wrap: wrap;
         max-width: 180px;
     }
+}
+@media screen and (max-width: 330px) {
+   
     .techs__title-big {
         font-size: 30px;
 line-height: 36px;
