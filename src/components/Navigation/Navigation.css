@@ -1,0 +1,31 @@
+.header__navigation-items{
+
+}
+.header__navigation-item{
+
+}
+
+.header__navigation-account{
+    border-radius: 20px;
+    padding: 8px 20px;
+}
+.header__navigation-items-films{
+    padding-inline: 0;
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    font-weight: 400;
+font-size: 13px;
+line-height: 18px;
+}
+.header__navigation-item-films{
+    
+}
+.header__navigation-item-films:hover{
+    font-weight: 500;
+}
+.header__navigation-item-film{
+color: black;
+text-decoration: none;
+
+}

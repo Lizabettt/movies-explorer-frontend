@@ -1,0 +1,35 @@
+.moviesCardList{
+padding: 10px 70px;
+    }
+.moviesCardList__box{
+    padding-top: 70px;
+
+    }
+.moviesCardList__items{
+
+    }
+    .moviesCardList__item{
+        display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(4, auto);
+    gap: 27px 24px;
+   margin-block: 0;
+   padding-inline: 0;
+    }
+    .moviesCardList__btn-box{
+   padding-top: 78px;    
+   padding-bottom: 55px;
+     display: flex;
+     justify-content: center;
+    }
+    
+    .moviesCardList__btn{
+       padding: 0;
+    border: none;
+    background-color: #E8E8E8;
+        min-width: 320px;
+        height: 36px;
+        font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+    }

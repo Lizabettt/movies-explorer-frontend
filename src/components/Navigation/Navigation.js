@@ -7,14 +7,21 @@ export default function Navigation({ isOpen }) {
     <section className='navigation'>
       <ul className='header__navigation-items'>
         <li className='header__navigation-item'>
-          <Link className='header__navigation-item-films' to='/movies'>
-            Фильмы
-          </Link>
-        </li>
-        <li className='header__navigation-item'>
-          <Link className='header__navigation-item-films' to='/saved-movies'>
-            Сохранённые фильмы
-          </Link>
+          <ul className='header__navigation-items-films'>
+            <li className='header__navigation-item-films'>
+              <Link className='header__navigation-item-film' to='/movies'>
+                Фильмы
+              </Link>
+            </li>
+            <li className='header__navigation-item-films'>
+              <Link
+                className='header__navigation-item-film'
+                to='/saved-movies'
+              >
+                Сохранённые фильмы
+              </Link>
+            </li>
+          </ul>
         </li>
         <li className='header__navigation-item'>
           <Link className='header__navigation-account btn' to='/profile'>
