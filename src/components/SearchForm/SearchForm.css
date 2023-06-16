@@ -44,3 +44,10 @@ background-color: #F9F9F9;
 font-size: 13px;
 line-height: 18px;
 }
+@media screen and (max-width: 770px) {
+    .searchForm{
+        padding: 60px 30px 110px 30px;
+    }
+    .searchForm__box{
+    grid-template-columns: auto 96px 82px 137px;
+}}

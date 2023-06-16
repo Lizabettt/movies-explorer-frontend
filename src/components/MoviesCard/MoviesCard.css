@@ -33,6 +33,10 @@ background-repeat: no-repeat;
     width: 30px;
     height: 30px;
 }
-.moviesCard__pic{
 
+@media screen and (max-width: 770px) {
+   
+    .moviesCard__pic{
+width: 339px;
+}
 }
