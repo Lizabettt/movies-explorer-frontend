@@ -4,12 +4,18 @@
 }
 
 .searchForm__box {
+
+    display: flex;
+
+}
+
+.searchForm__input-box {
     min-height: 72px;
     background-color: #F9F9F9;
-    border-radius: 9px;
-    display: grid;
-    grid-template-columns: auto 140px 78px 150px;
-    align-items: center;
+    border-radius: 9px 0 0 9px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 
 }
 
@@ -28,6 +34,17 @@
     line-height: 20px;
 }
 
+.searchForm__tumbl-box {
+    display: flex;
+    align-items: center;
+
+    border-radius: 0 9px 9px 0;
+    background-color: #F9F9F9;
+    min-height: 72px;
+    padding-right: 30px;
+    padding-left: 60px;
+}
+
 .searchForm__btn {
     padding: 0;
     border-width: 0;
@@ -36,20 +53,22 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: #F9F9F9;
-    border-right: 1px #E8E8E8 solid;
+
     height: 34px;
+    width: 80px;
 }
 
-.searchForm__tumbl {
-    padding-left: 30px;
-}
+.searchForm__tumbl {}
 
 .searchForm__shortFilms {
     margin-block: 0;
     font-weight: 400;
     font-size: 13px;
     line-height: 18px;
+    padding-left: 10px;
 }
+
+.searchForm__items {}
 
 @media screen and (max-width: 770px) {
     .searchForm {
@@ -57,19 +76,60 @@
     }
 
     .searchForm__box {
-        grid-template-columns: auto 96px 82px 137px;
+        /* grid-template-columns: auto 96px 82px 137px; */
+    }
+
+    .searchForm__tumbl-box {
+        padding-right: 20px;
+        padding-left: 40px;
+
     }
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 600px) {
     .searchForm {
-       
-    padding: 65px 10px 80px 10px;
-       
+
+        padding: 65px 10px 17px 10px;
+
     }
 
     .searchForm__box {
-        grid-template-columns: auto 96px;
-        grid-template-rows: 15px 50px;
+        /* grid-template-columns: auto 96px;
+        grid-template-rows: 15px 50px; */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchForm__input-box {
+        border-radius: 9px;
+        height: 100%;
+    }
+
+    .searchForm__input {
+        background-image: none;
+        padding: 0;
+
+    }
+
+    .searchForm__input::placeholder {
+
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .searchForm__shortFilms {
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 18px;
+    }
+
+    .searchForm__tumbl-box {
+        background-color: white;
+        padding: 21px 66px 0 76px;
+    }
+
+    .searchForm__btn {
+        background-position: -22px;
+     
     }
 }
