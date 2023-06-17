@@ -1,17 +1,13 @@
 .header {
-    margin: 18px 70px 35px 70px;
+    margin: 15px 70px 35px 70px;
     display: flex;
-    justify-content: space-between;
+   
 }
 
-.header__logo {}
 
-.header__logo-pic {
-    width: 38px;
-    height: 38px;
-}
 
-.header__box {
+
+/* .header__box {
     display: flex;
     align-items: center;
 }
@@ -31,7 +27,7 @@
     text-decoration: none;
     color: #000;
     border-radius: 3px;
-}
+} */
 
 .header__box-account-menu {
     display: flex;
@@ -39,14 +35,14 @@
 }
 
 
-.header__navigation-item {
+/* .header__navigation-item {
     font-size: 12px;
     background-color: #FFF;
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
 
-}
+} */
 
 .header__navigation-account {
     font-size: 14px;
@@ -64,16 +60,16 @@
 
 @media screen and (max-width: 770px) {
     .header {
-        margin: 18px 30px 35px 30px;
+        margin: 15px 30px 35px 30px;
     }
 }
 
 @media screen and (max-width: 330px) {
     .header {
-        margin: 18px 14px 29px 14px;
+        margin: 15px 14px 29px 14px;
     }
 
-    .header__navigation-items {
+    /* .header__navigation-items {
         gap: 4px;
     }
 
@@ -83,5 +79,5 @@
     }
     .header__navigation-link {
         padding: 5px 12px;
-    }
+    } */
 }

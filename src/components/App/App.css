@@ -10,6 +10,9 @@
 }
 
 .btn {
+    background-color: #FFF;
+    font-weight: 500;
+    font-size: 12px;
     line-height: 16px;
     color: #000;
     text-decoration: none;
@@ -62,6 +65,10 @@
 
 }
 @media screen and (max-width: 330px) {
+    .btn{
+        font-size: 10px;
+        line-height: 16px;
+    }
     .section{
         padding: 70px 18px;
     }

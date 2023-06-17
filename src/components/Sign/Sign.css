@@ -1,0 +1,44 @@
+.sign__box {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.sign__items {
+    display: flex;
+
+    margin-block: 0;
+    padding-inline: 0;
+    list-style: none;
+    gap: 10px;
+
+}
+
+.sign__link {
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #000;
+    border-radius: 3px;
+}
+.sign__item {
+    /* font-size: 12px; */
+    background-color: #FFF;
+    /* font-weight: 500;
+    font-size: 12px;
+    line-height: 16px; */
+
+}
+
+@media screen and (max-width: 330px) {
+       .sign__items {
+        gap: 4px;
+    }
+
+    .sign__item {
+       
+    }
+    .sign__link {
+        padding: 5px 12px;
+    }
+}

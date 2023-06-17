@@ -12,6 +12,7 @@
 .moviesCardList__item {
     display: grid;
     grid-template-columns: repeat(auto-fit, 364px);
+    justify-content: center;
     gap: 27px 24px;
     margin-block: 0;
     padding-inline: 0;
@@ -25,13 +26,11 @@
 }
 
 .moviesCardList__btn {
-    padding: 0;
-    border: none;
+   
     background-color: #E8E8E8;
     min-width: 320px;
     height: 36px;
-    font-weight: 500;
-    font-size: 12px;
+   
     line-height: 15px;
 }
 
@@ -49,5 +48,20 @@
 
     .moviesCardList__btn-box {
         padding-bottom: 68px;
+    }
+}
+@media screen and (max-width: 330px) {
+    .moviesCardList__item {
+        grid-template-columns: repeat(auto-fit, 300px);
+        gap: 16px;
+        
+    }
+
+    .moviesCardList {
+        padding: 14px 10px;
+    }
+
+    .moviesCardList__btn-box {
+        padding-bottom: 52px;
     }
 }

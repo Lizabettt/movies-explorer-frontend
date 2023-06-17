@@ -1,41 +1,39 @@
 import { Link } from 'react-router-dom';
 import './Navigation.css';
-// import menu from '../../images/menu.svg';
+import menu from '../../images/menu.svg';
 
-export default function Navigation({ isOpen }) {
+export default function Navigation({}) {
+  //isOpen
   return (
-    <section className='navigation'>
-      <ul className='header__navigation-items'>
-        <li className='header__navigation-item'>
-          <ul className='header__navigation-items-films'>
-            <li className='header__navigation-item-films'>
-              <Link className='header__navigation-item-film' to='/movies'>
+    <div className='navigation__box'>
+      <div className='navigation__items'>
+        <div className='navigation__item'>
+          <ul className='navigation__items-films'>
+            <li className='navigation__item-films'>
+              <Link className='navigation__item-film' to='/movies'>
                 Фильмы
               </Link>
             </li>
-            <li className='header__navigation-item-films'>
-              <Link
-                className='header__navigation-item-film'
-                to='/saved-movies'
-              >
+            <li className='navigation__item-films'>
+              <Link className='navigation__item-film' to='/saved-movies'>
                 Сохранённые фильмы
               </Link>
             </li>
           </ul>
-        </li>
-        <li className='header__navigation-item'>
-          <Link className='header__navigation-account btn' to='/profile'>
+        </div>
+        <div className='navigation__item'>
+          <Link className='navigation__account btn' to='/profile'>
             Аккаунт
           </Link>
 
-          {/* <button
-            className='header__navigation-item-burger btn'
-            onClick={isOpen}
+          <button
+            className='navigation__burger btn'
+            // onClick={isOpen}
           >
             <img src={menu} alt='Бургер меню' />
-          </button> */}
-        </li>
-      </ul>
-    </section>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
