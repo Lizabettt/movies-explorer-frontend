@@ -1,11 +1,17 @@
 import './Login.css';
-
+import FormSign from '../FormSign/FormSign';
 
 export default function Login() {
     return (
-      <section className='login'>
+      <FormSign
+      name='login'
+      title='login'
+      btnText='Войти'   
+      nameColor="login"
+      textAfterBtn="Ещё не зарегистрированы?"
+      linkAfterBtn="Регистрация"
+      >
 
-        <p>Login</p>
-      </section>
+      </FormSign>
     );
   }
