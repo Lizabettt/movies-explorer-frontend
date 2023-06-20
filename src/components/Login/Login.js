@@ -5,10 +5,10 @@ export default function Login() {
     return (
       <FormSign
       name='login'
-      title='login'
+      title='Рады видеть!'
       btnText='Войти'   
       nameColor="login"
-      textAfterBtn="Ещё не зарегистрированы?"
+      question="Ещё не зарегистрированы?"
       linkAfterBtn="Регистрация"
       >
 

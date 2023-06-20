@@ -5,13 +5,13 @@ export default function NavTab() {
     <nav className='navTab'>
       <ul className='navTab__btns'>
         <li className='navTab__btn btn'>
-          <a className='navTab__btn-link'>О проекте</a>
+          <a className='navTab__btn-link' href="#aboutProject">О проекте</a>
         </li>
         <li className='navTab__btn btn'>
-          <a className='navTab__btn-link'>Технологии</a>
+          <a className='navTab__btn-link' href="#techs">Технологии</a>
         </li>
         <li className='navTab__btn btn'>
-          <a className='navTab__btn-link'>Студент</a>
+          <a className='navTab__btn-link' href="#aboutMe">Студент</a>
         </li>
       </ul>
     </nav>

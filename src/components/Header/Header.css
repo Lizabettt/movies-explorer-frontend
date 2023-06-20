@@ -5,44 +5,10 @@
 }
 
 
-
-
-/* .header__box {
-    display: flex;
-    align-items: center;
-}
-
-.header__navigation-items {
-    display: flex;
-
-    margin-block: 0;
-    padding-inline: 0;
-    list-style: none;
-    gap: 10px;
-
-}
-
-.header__navigation-link {
-    padding: 8px 20px;
-    text-decoration: none;
-    color: #000;
-    border-radius: 3px;
-} */
-
 .header__box-account-menu {
     display: flex;
     gap: 30px;
 }
-
-
-/* .header__navigation-item {
-    font-size: 12px;
-    background-color: #FFF;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-
-} */
 
 .header__navigation-account {
     font-size: 14px;

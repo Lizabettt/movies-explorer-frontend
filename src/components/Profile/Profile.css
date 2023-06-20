@@ -62,10 +62,11 @@
 .inputName-err {}
 
 .inputEmail-err {
-    padding-bottom: 205px;
+   
 }
 
 .profile__btn {
+    padding-top: 205px;
     margin-block: 0;
     font-weight: 400;
     font-size: 13px;
@@ -87,8 +88,8 @@
 
     }
 
-    .inputEmail-err {
-        padding-bottom: 195px;
+    .profile__btn {
+        padding-top: 195px;
     }
 
 }
@@ -104,8 +105,8 @@
 
     }
 
-    .inputEmail-err {
-        padding-bottom: 363px;
+    .profile__btn {
+        padding-top: 363px;
     }
 
     .profile__btn {

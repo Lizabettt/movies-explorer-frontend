@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className='header'>
       <Logo />
-    {location.pathname === '/' ? ( <Sign /> ) : ( <Navigation />  )}
+    {location.pathname === '/' ? ( <Sign /> ) : ( <Navigation /> )}
     </header>
   );
 }

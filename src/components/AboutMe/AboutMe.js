@@ -3,7 +3,7 @@ import foto from '../../images/foto.png';
 
 export default function AboutMe() {
   return (
-    <section className='aboutMe section'>
+    <section className='aboutMe section' id="aboutMe">
       <h2 className='section-title'>Студент</h2>
       <div className='aboutMe__box'>
         <div className='aboutMe__box-info'>
