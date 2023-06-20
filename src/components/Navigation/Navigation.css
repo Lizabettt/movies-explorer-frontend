@@ -17,7 +17,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
-
+    transition: .4s ease-in-out;
 }
 
 .navigation__items-films {
@@ -31,7 +31,9 @@
     line-height: 18px;
 }
 
-.navigation__item-films {}
+.navigation__item-films {
+    transition: .4s ease-in-out;
+}
 
 .navigation__item-films:hover {
     font-weight: 500;
@@ -58,6 +60,8 @@
 
     .navigation__burger {
         display: flex;
+        cursor: pointer;
+        transition: .4s ease-in-out;
     }
     .navigation__items-films{
         display: none;

@@ -75,6 +75,7 @@
 .profile__btn_type_exit {
     color: #FF3055;
     padding-top: 10px;
+    transition: .4s ease-in-out;
 }
 
 @media screen and (max-width: 770px) {

@@ -20,6 +20,7 @@
     text-decoration: none;
     color: #000;
     border-radius: 3px;
+    transition: .4s ease-in-out;
 }
 .sign__item {
     /* font-size: 12px; */

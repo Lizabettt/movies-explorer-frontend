@@ -10,6 +10,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import Burger from '../Burger/Burger';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 // import ProtectedRouteElement from '../ProtectedRoute';
@@ -17,13 +18,20 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
   // const [loggedIn, setLoggedIn] = useState(false);
+  const [isClickBurger, setClickBurger] = useState(false);
+
+  // открыть бургер
+  function handleOpenBurger() {
+    setClickBurger(true);
+  }
+  // закрыть бургер
+  function handleCloseBurger() {
+    setClickBurger(false);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header
-      //onExit={handleExit}
-      // email={emailUserHeader}
-      />
+      <Header isOpen={handleOpenBurger} />
       <main className='main'>
         <Routes>
           <Route path='/' element={<Main />} />
@@ -50,38 +58,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-
-      {/* <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatarUser={handleUpdateUserAvatar}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-        />
-        <PopupWithForm
-          name="delete"
-          title="Вы уверены?"
-          btnText="Да"
-        ></PopupWithForm>
-
-        <ImagePopup
-          name="img"
-          card={isDataCards}
-          isOpen={chooseCard}
-          onClose={closeAllPopups}
-        />
-        <InfoTooltip
-            isOpen={isInfoTooltipPopupOpen}
-            onClose={closeAllPopups}
-            luckRegister={luckRegister}  />  */}
+      <Burger isOpen={isClickBurger} onClose={handleCloseBurger} />
     </CurrentUserContext.Provider>
   );
 }

@@ -27,7 +27,7 @@
 
 .moviesCardList__btn {
 
-
+    transition: .4s ease-in-out;
     min-width: 320px;
     height: 36px;
     border: 1px #E8E8E8 solid;

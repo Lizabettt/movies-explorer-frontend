@@ -7,7 +7,6 @@
 
     font-family: 'Inter', sans-serif;
     font-style: normal;
-    /* position: relative; */
 }
 
 .btn {
@@ -19,10 +18,13 @@
     text-decoration: none;
     padding: 0;
     border: none;
+   
 }
 
 .btn:hover {
-    background-color: #2BE080;
+    
+    background-color:  #2BE080;
+    
 }
 .section{
     padding: 110px 70px;

@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
 import './Navigation.css';
+
+import { Link } from 'react-router-dom';
 import menu from '../../images/menu.svg';
 
-export default function Navigation({}) {
-  //isOpen
+export default function Navigation({ isOpen}) {
+  
   return (
     <div className='navigation__box'>
       <div className='navigation__items'>
@@ -25,13 +26,13 @@ export default function Navigation({}) {
           <Link className='navigation__account btn' to='/profile'>
             Аккаунт
           </Link>
-
+          
           <button
             className='navigation__burger btn'
-            // onClick={isOpen}
+           onClick={isOpen}
           >
             <img src={menu} alt='Бургер меню' />
-          </button>
+          </button>         
         </div>
       </div>
     </div>
