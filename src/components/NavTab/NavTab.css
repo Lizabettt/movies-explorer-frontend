@@ -30,21 +30,24 @@
     display: flex;
 
 }
+
 @media screen and (max-width: 770px) {
     .navTab__btns {
         padding-top: 314px;
     }
 }
+
 @media screen and (max-width: 330px) {
     .navTab__btns {
         padding: 213px 0 16px 0;
         gap: 6px;
     }
+
     .navTab__btn {
         width: 82px;
         height: 26px;
         border-radius: 6px;
         font-size: 10px;
-line-height: 16px
+        line-height: 16px
     }
 }

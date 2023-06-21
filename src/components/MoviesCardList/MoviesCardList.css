@@ -4,7 +4,6 @@
 
 .moviesCardList__box {
     padding-top: 70px;
-
 }
 
 .moviesCardList__items {}
@@ -69,7 +68,6 @@
         grid-template-columns: repeat(auto-fit, 300px);
         gap: 15px;
         height: 1248px;
-
     }
 
     .moviesCardList {
@@ -79,6 +77,4 @@
     .moviesCardList__btn-box {
         padding-bottom: 65px;
     }
-
-
 }

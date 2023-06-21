@@ -7,12 +7,10 @@
 
 .sign__items {
     display: flex;
-
     margin-block: 0;
     padding-inline: 0;
     list-style: none;
     gap: 10px;
-
 }
 
 .sign__link {
@@ -22,23 +20,18 @@
     border-radius: 3px;
     transition: .4s ease-in-out;
 }
-.sign__item {
-    /* font-size: 12px; */
-    background-color: #FFF;
-    /* font-weight: 500;
-    font-size: 12px;
-    line-height: 16px; */
 
+.sign__item {
+    background-color: #FFF;
 }
 
 @media screen and (max-width: 330px) {
-       .sign__items {
+    .sign__items {
         gap: 4px;
     }
 
-    .sign__item {
-       
-    }
+    .sign__item {}
+
     .sign__link {
         padding: 5px 12px;
     }

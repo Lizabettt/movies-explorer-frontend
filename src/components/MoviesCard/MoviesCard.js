@@ -1,7 +1,8 @@
 import './MoviesCard.css';
 import imageFilm from '../../images/imageFilm.png';
 
-export default function MoviesCard() { //{card}
+export default function MoviesCard() {
+  //{card}
   return (
     <li className='moviesCard'>
       <div className='moviesCard__box'>
@@ -11,7 +12,11 @@ export default function MoviesCard() { //{card}
         </div>
         <button className='moviesCard__btn'></button>
       </div>
-      <img className='moviesCard__pic' src={imageFilm} alt='Картинка к фильму' />
+      <img
+        className='moviesCard__pic'
+        src={imageFilm}
+        alt='Картинка к фильму'
+      />
     </li>
   );
 }

@@ -61,9 +61,7 @@
 
 .inputName-err {}
 
-.inputEmail-err {
-   
-}
+.inputEmail-err {}
 
 .profile__btn {
     padding-top: 205px;
@@ -86,13 +84,11 @@
 
     .profile__form {
         padding-top: 93px;
-
     }
 
     .profile__btn {
         padding-top: 195px;
     }
-
 }
 
 @media screen and (max-width: 600px) {
@@ -103,7 +99,6 @@
     .profile__form {
         padding-top: 78px;
         width: 260px;
-
     }
 
     .profile__btn {
@@ -114,6 +109,4 @@
         font-size: 12px;
         line-height: 15px;
     }
-
-
 }

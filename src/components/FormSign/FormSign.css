@@ -11,12 +11,6 @@
     align-items: center;
 }
 
-.formSign-box {
-    /* display: flex;
- flex-direction: column;
- align-items: center; */
-}
-
 .formSign__title {
     margin-block: 0;
 
@@ -30,8 +24,7 @@
     padding-top: 40px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    
+    gap: 12px;    
 }
 
 .formSign__items-inputs {
@@ -53,15 +46,13 @@
     padding: 0;
     border: none;
     border-bottom: 1px solid #E8E8E8;
-    height: 32px;
-   
+    height: 32px;   
 }
 
 .formSign__item-input::placeholder {
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
-
 }
 
 .formSign__input-help {}
@@ -97,7 +88,6 @@
 .formSign__question {
     margin-block: 0;
     color: #A0A0A0;
-
 }
 
 .formSign__link {
@@ -128,11 +118,6 @@
     .formSign__form {
         width: 260px;
         padding-top: 78px;
-
-    }
-
-    .formSign-btn-box {
-       
     }
 
     .formSign-afterBtn-box {

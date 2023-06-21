@@ -5,29 +5,22 @@ import { Link } from 'react-router-dom';
 export default function FormSign({
   name,
   title,
-  // isOpen,
-  // onClose,
   children,
   btnText,
-  // onSubmit,
-  nameColor,
   question,
   linkAfterBtn,
 }) {
   return (
-    <div
-      className='formSign' // onClick={onClose}
-    >
+    <div className='formSign'>
       <div className='formSign-box'>
         <Logo />
         <h2 className='formSign__title'> {title} </h2>
         <form
-          className="formSign__form"
+          className='formSign__form'
           action='formSign__form'
           name='formSign__name'
           method='post'
           noValidate
-          // onSubmit={onSubmit}
         >
           {children}
 
@@ -66,17 +59,14 @@ export default function FormSign({
           </div>
           <span className='formSign__input-help inputPassword-err'></span>
           <div className={`formSign-btn-box formSign__btn-box_type-${name}`}>
-            <button
-              className="formSign__btn "
-              type='submit'
-            >
+            <button className='formSign__btn ' type='submit'>
               {btnText}
             </button>
           </div>
         </form>
         <div className='formSign-afterBtn-box'>
-        <p className='formSign__question'>{question}</p>
-        <Link className='formSign__link'>{linkAfterBtn}</Link>
+          <p className='formSign__question'>{question}</p>
+          <Link className='formSign__link'>{linkAfterBtn}</Link>
         </div>
       </div>
     </div>

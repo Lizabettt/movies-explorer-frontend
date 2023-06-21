@@ -18,17 +18,18 @@
     text-decoration: none;
     padding: 0;
     border: none;
-   
+
 }
 
 .btn:hover {
-    
-    background-color:  #2BE080;
-    
+    background-color: #2BE080;
+
 }
-.section{
+
+.section {
     padding: 110px 70px;
 }
+
 .section-title {
     margin-block: 0;
     font-weight: 400;
@@ -50,13 +51,9 @@
 }
 
 @media screen and (max-width: 770px) {
-    .section{
+    .section {
         padding: 90px 50px;
     }
-    /* .section-title {
-        font-size: 20px;
-        line-height: 24px;
-    } */
 
     .section-subtitle {
         font-size: 12px;
@@ -67,23 +64,27 @@
     }
 
 }
+
 @media screen and (max-width: 330px) {
-    .btn{
+    .btn {
         font-size: 10px;
         line-height: 16px;
     }
-    .section{
+
+    .section {
         padding: 70px 18px;
     }
+
     .section-title {
         font-size: 18px;
         line-height: 22px;
         padding-bottom: 27px;
     }
+
     .section-subtitle {
-    font-size: 11px;
-line-height: 16px;
-padding-top: 16px;
+        font-size: 11px;
+        line-height: 16px;
+        padding-top: 16px;
         padding-bottom: 58px;
     }
 }

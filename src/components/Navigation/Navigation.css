@@ -42,7 +42,6 @@
 .navigation__item-film {
     color: black;
     text-decoration: none;
-   
 }
 
 .navigation__burger {
@@ -51,9 +50,9 @@
 
 @media screen and (max-width: 770px) {
     .navigation__box {
- 
         padding-top: 0;
     }
+
     .navigation__account {
         display: none;
     }
@@ -63,7 +62,8 @@
         cursor: pointer;
         transition: .4s ease-in-out;
     }
-    .navigation__items-films{
+
+    .navigation__items-films {
         display: none;
     }
 }

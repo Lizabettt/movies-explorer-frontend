@@ -41,7 +41,10 @@ export default function Profile() {
         </div>
         <span className='profile__input-help inputEmail-err'></span>
         <p className='profile__btn btn'>Редактировать</p>
-        <Link className='profile__btn profile__btn_type_exit btn' to={'/signin'}>
+        <Link
+          className='profile__btn profile__btn_type_exit btn'
+          to={'/signin'}
+        >
           Выйти из аккаунта
         </Link>
       </form>

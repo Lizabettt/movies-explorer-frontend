@@ -59,7 +59,7 @@
 }
 
 @media screen and (max-width: 770px) {
-        .aboutProject__info {
+    .aboutProject__info {
         column-gap: 30px;
     }
 

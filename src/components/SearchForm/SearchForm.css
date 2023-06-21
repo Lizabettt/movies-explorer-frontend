@@ -4,9 +4,7 @@
 }
 
 .searchForm__box {
-
     display: flex;
-
 }
 
 .searchForm__input-box {
@@ -16,7 +14,6 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-
 }
 
 .searchForm__input {
@@ -37,7 +34,6 @@
 .searchForm__tumbl-box {
     display: flex;
     align-items: center;
-
     border-radius: 0 9px 9px 0;
     background-color: #F9F9F9;
     min-height: 72px;
@@ -53,7 +49,6 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: #F9F9F9;
-
     height: 34px;
     width: 80px;
 }
@@ -75,27 +70,18 @@
         padding: 60px 30px 110px 30px;
     }
 
-    .searchForm__box {
-        /* grid-template-columns: auto 96px 82px 137px; */
-    }
-
     .searchForm__tumbl-box {
         padding-right: 20px;
         padding-left: 40px;
-
     }
 }
 
 @media screen and (max-width: 600px) {
     .searchForm {
-
         padding: 65px 10px 17px 10px;
-
     }
 
     .searchForm__box {
-        /* grid-template-columns: auto 96px;
-        grid-template-rows: 15px 50px; */
         display: flex;
         flex-direction: column;
     }
@@ -108,11 +94,9 @@
     .searchForm__input {
         background-image: none;
         padding: 0;
-
     }
 
     .searchForm__input::placeholder {
-
         font-size: 14px;
         line-height: 20px;
     }
@@ -129,7 +113,6 @@
     }
 
     .searchForm__btn {
-        background-position: -22px;
-     
+        background-position: -22px;     
     }
 }

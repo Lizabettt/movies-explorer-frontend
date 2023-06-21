@@ -2,7 +2,9 @@ import './Burger.css';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import closeIcon from '../../images/closeIcon.svg';
+
 export default function Burger({ isOpen, onClose }) {
+
   //закрытие по esc
   function handleEscClose(evt) {
     evt.key === 'Escape' && onClose();

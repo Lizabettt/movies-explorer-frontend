@@ -1,7 +1,6 @@
 .header {
     margin: 15px 70px 35px 70px;
     display: flex;
-   
 }
 
 
@@ -15,7 +14,6 @@
     background-color: #F9F9F9;
     width: 100px;
     height: 36px;
-
 }
 
 .header__navigation-item-burger {
@@ -35,15 +33,4 @@
         margin: 15px 14px 29px 14px;
     }
 
-    /* .header__navigation-items {
-        gap: 4px;
-    }
-
-    .header__navigation-item {
-        font-size: 10px;
-        line-height: 16px;
-    }
-    .header__navigation-link {
-        padding: 5px 12px;
-    } */
 }
