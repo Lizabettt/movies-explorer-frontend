@@ -14,6 +14,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding-right: 19px;
 }
 
 .searchForm__input {
@@ -44,7 +45,7 @@
 .searchForm__btn {
     padding: 0;
     border-width: 0;
-    margin: 16px 0;
+    margin: 19px 12px 19px 0;
     background-image: url('../../images/find.svg');
     background-repeat: no-repeat;
     background-position: center;
@@ -64,6 +65,12 @@
 }
 
 .searchForm__items {}
+.searchForm__line {
+    width: 1px;
+    background-color: #E8E8E8;
+    height: 40px;
+    margin-top: 16px;
+  }
 
 @media screen and (max-width: 770px) {
     .searchForm {
@@ -73,6 +80,9 @@
     .searchForm__tumbl-box {
         padding-right: 20px;
         padding-left: 40px;
+    }
+    .searchForm__input-box {
+        padding-right: 8px;
     }
 }
 

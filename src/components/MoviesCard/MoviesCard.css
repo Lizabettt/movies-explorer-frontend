@@ -6,6 +6,8 @@
     display: flex;
     justify-content: space-between;
     padding: 14px 14px 13px 14px;
+    background-color: #FDFDFD;
+box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
 }
 
 .moviesCard__info {}
