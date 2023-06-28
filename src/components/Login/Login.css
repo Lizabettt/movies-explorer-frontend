@@ -1,0 +1,7 @@
+.formSign-btn-box_type-login{
+    padding-top: 197px;
+}
+@media screen and (max-width: 600px) {
+.formSign-btn-box {
+    padding-top: 287px;
+}}

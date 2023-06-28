@@ -1,0 +1,117 @@
+.aboutMe__box {
+    padding-top: 66px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.aboutMe__box-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutMe__box-name {
+    margin-block: 0;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+}
+
+.aboutMe__info {
+    margin-block: 0;
+    padding-top: 18px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.aboutMe__text {
+    margin-block: 0;
+    padding-top: 26px;
+    max-width: 617px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.aboutMe__linkGithub {
+    color: #000;
+    text-decoration: none;
+    padding-top: 99px;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.aboutMe__foto {
+    object-fit: contain;
+}
+
+.aboutMe__foto {
+    max-width: 270px;
+}
+
+@media screen and (max-width: 770px) {
+    .aboutMe__box-name {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    .aboutMe__info {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .aboutMe__text {
+        padding-top: 20px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .aboutMe__linkGithub {
+        padding-top: 87px;
+    }
+
+    .aboutMe__box {
+        gap: 56px;
+        padding-top: 62px;
+    }
+
+    .aboutMe__foto {
+        max-width: 255px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .aboutMe {
+        padding: 70px 14px;
+    }
+
+    .aboutMe__box {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+
+    .aboutMe__foto {
+        max-width: 292px;
+    }
+
+    .aboutMe__box-name {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .aboutMe__info {
+        font-size: 11px;
+        line-height: 16px;
+        padding-top: 20px;
+    }
+
+    .aboutMe__text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .aboutMe__linkGithub {
+        padding-top: 40px;
+    }
+}
