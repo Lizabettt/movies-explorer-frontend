@@ -7,7 +7,7 @@
 
 }
 
-.filterCheckbox__input {
+.filterCheckbox-input {
     width: 0;
     height: 0;
     position: absolute;
@@ -15,7 +15,7 @@
     appearance: none;
 }
 
-.filterCheckbox__text {
+.filterCheckbox-text {
     padding: 27px 30px 27px 79px;
     /* padding-left: 74px;
     display: inline-block; */
@@ -24,7 +24,7 @@
     line-height: 18px;
 }
 
-.filterCheckbox__text::before {
+.filterCheckbox-text::before {
     display: block;
     content: "";
     position: absolute;
@@ -37,7 +37,7 @@
     transition: background-color .4s;
 }
 
-.filterCheckbox__text::after {
+.filterCheckbox-text::after {
     display: block;
     content: "";
     position: absolute;
@@ -50,34 +50,29 @@
     transition: background-color .4s, left .4s;
 }
 
-.filterCheckbox__input:checked+.filterCheckbox__text::before {
+.filterCheckbox-input:checked+.filterCheckbox-text::before {
     background-color: #2BE080;
 }
 
-.filterCheckbox__input:checked+.filterCheckbox__text::after {
+.filterCheckbox-input:checked+.filterCheckbox-text::after {
     background-color: white;
     left: 45px;
 }
 
-/* .filterCheckbox__input:focus+.filterCheckbox__text::before {
-    outline: 1px solid gray;
-    outline-offset: 3px;
-} */
-
 @media screen and (max-width: 770px) {
-    .filterCheckbox__text {
+    .filterCheckbox-text {
         padding: 27px 20px 27px 69px;
     }
 
-    .filterCheckbox__text::before {
+    .filterCheckbox-text::before {
         left: 20px;
     }
 
-    .filterCheckbox__input:checked+.filterCheckbox__text::after {
+    .filterCheckbox-input:checked+.filterCheckbox-text::after {
         left: 38px;
     }
 
-    .filterCheckbox__text::after {
+    .filterCheckbox-text::after {
         left: 22px;
     }
 }
@@ -90,11 +85,11 @@
             justify-content: center;
         }
 
-        .searchForm__line {
+        .searchForm-line {
             display: none;
         }
 
-        .filterCheckbox__text {
+        .filterCheckbox-text {
             font-weight: 400;
             font-size: 11px;
             line-height: 18px;

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Sign() {
   return (
-    <div className='sign__box'>
+    <div className='sign'>
       <ul className='sign__items'>
         <li className='sign__item'>
           <Link className='sign__link btn' to='/signup'>

@@ -28,7 +28,7 @@
 
 .aboutProject__progressLine:first-child {}
 
-.aboutProject__progressLine_week {
+.aboutProject__progressLine-week {
     height: 36px;
     background-color: #2BE080;
     display: flex;
@@ -36,22 +36,22 @@
     justify-content: center;
 }
 
-.aboutProject__progressLine_week-type-light {
+.aboutProject__progressLine-week_type-light {
     background-color: #F2F2F2;
 }
 
-.aboutProject__progressLine_week-text {
+.aboutProject__progressLine-week-text {
     margin-block: 0;
     font-weight: 400;
 }
 
-.aboutProject__progressLine_boxText {
+.aboutProject__progressLine-boxText {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.aboutProject__progressLine_boxText-text {
+.aboutProject__progressLine-boxText-text {
     margin-block: 0;
     padding-top: 15px;
     color: #A0A0A0;
@@ -86,7 +86,7 @@
         line-height: 13px;
     }
 
-    .aboutProject__progressLine_boxText-text {
+    .aboutProject__progressLine-boxText-text {
         padding-top: 10px;
     }
 }

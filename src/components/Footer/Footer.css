@@ -1,5 +1,5 @@
 .footer {
-    padding: 95px 70px 20px 70px;
+    padding: 72px 70px 20px 70px;
     display: flex;
     flex-direction: column;
     font-weight: 400;
@@ -44,7 +44,7 @@
 
 @media screen and (max-width: 770px) {
     .footer {
-        padding: 79px 25px 20px 35px;
+        padding: 59px 25px 20px 35px;
     }
 
     .footer__title {
@@ -58,7 +58,7 @@
 
 @media screen and (max-width: 330px) {
     .footer {
-        padding: 79px 10px 0 10px;
+        padding: 55px 10px 0 10px;
         font-size: 12px;
         line-height: 15px;
     }

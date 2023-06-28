@@ -1,4 +1,4 @@
-.navigation__box {
+.navigation {
     width: 100%;
     padding-top: 13px;
 }
@@ -8,8 +8,6 @@
     justify-content: space-between;
     padding-left: 45px;
 }
-
-.navigation__item {}
 
 .navigation__account {
     border-radius: 20px;
@@ -49,7 +47,7 @@
 }
 
 @media screen and (max-width: 770px) {
-    .navigation__box {
+    .navigation {
         padding-top: 0;
     }
 

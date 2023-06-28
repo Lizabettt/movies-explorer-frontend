@@ -8,37 +8,38 @@ export default function Portfolio() {
       <div className='portfolio__box'>
         <ul className='portfolio__nameLinks'>
           <li className='portfolio__nameLink'>
-            <p className='portfolio__nameLink-text'>Статичный сайт</p>
             <a
               className='portfolio__link'
               href='https://github.com/Lizabettt/how-to-learn'
               target='_blank'
               rel='noreferrer'
             >
+              <p className='portfolio__nameLink-text'>Статичный сайт</p>
               <img className='portfolio__pic' src={link} alt='ссылка' />
             </a>
           </li>
           <li className='portfolio__nameLink'>
-            <p className='portfolio__nameLink-text'>Адаптивный сайт</p>
             <a
               className='portfolio__link'
               href='https://lizabettt.github.io/russian-travel/'
               target='_blank'
               rel='noreferrer'
             >
+              <p className='portfolio__nameLink-text'>Адаптивный сайт</p>
               <img className='portfolio__pic' src={link} alt='ссылка' />
             </a>
           </li>
           <li className='portfolio__nameLink'>
-            <p className='portfolio__nameLink-text'>
-              Одностраничное приложение
-            </p>
             <a
               className='portfolio__link'
               href='https://github.com/Lizabettt/react-mesto-api-full-gha'
               target='_blank'
               rel='noreferrer'
             >
+              {' '}
+              <p className='portfolio__nameLink-text'>
+                Одностраничное приложение
+              </p>
               <img className='portfolio__pic' src={link} alt='ссылка' />
             </a>
           </li>

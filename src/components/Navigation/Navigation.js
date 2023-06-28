@@ -5,7 +5,7 @@ import menu from '../../images/menu.svg';
 
 export default function Navigation({ isOpen }) {
   return (
-    <div className='navigation__box'>
+    <div className='navigation'>
       <div className='navigation__items'>
         <div className='navigation__item'>
           <ul className='navigation__items-films'>

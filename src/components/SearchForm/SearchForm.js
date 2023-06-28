@@ -1,5 +1,4 @@
 import './SearchForm.css';
-//import tumbl from '../../images/smalltumb.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 
 export default function SearchForm() {
@@ -18,11 +17,7 @@ export default function SearchForm() {
         </div>
         <span className="searchForm__line"></span>
         <FilterCheckbox />
-        {/* <div className='searchForm__tumbl-box'>
-          <img className='searchForm__tumbl' src={tumbl} />
-          <p className='searchForm__shortFilms'>Короткометражки</p>
-        </div> */}
-      </div>
+         </div>
     </form>
   );
 }

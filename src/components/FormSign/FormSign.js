@@ -58,7 +58,7 @@ export default function FormSign({
             />
           </div>
           <span className='formSign__input-help inputPassword-err'></span>
-          <div className={`formSign-btn-box formSign__btn-box_type-${name}`}>
+          <div className={`formSign-btn-box formSign-btn-box_type-${name}`}>
             <button className='formSign__btn ' type='submit'>
               {btnText}
             </button>
