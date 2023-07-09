@@ -9,6 +9,10 @@ export default function FormSign({
   btnText,
   question,
   linkAfterBtn,
+  onChange,
+  valuesEmail,
+  valuesPassword,
+  onSubmit,
 }) {
   return (
     <div className='formSign'>
@@ -21,6 +25,7 @@ export default function FormSign({
           name='formSign__name'
           method='post'
           noValidate
+          onSubmit={onSubmit}
         >
           {children}
 
@@ -38,6 +43,8 @@ export default function FormSign({
               maxLength='40'
               required
               autoComplete='off'
+              value={valuesEmail}
+              onChange={onChange}
             />
           </div>
           <span className='formSign__input-help inputEmail-err'></span>
@@ -55,6 +62,8 @@ export default function FormSign({
               maxLength='40'
               required
               autoComplete='off'
+              value={valuesPassword}
+              onChange={onChange}
             />
           </div>
           <span className='formSign__input-help inputPassword-err'></span>
