@@ -1,3 +1,5 @@
+
+import { BEATFILM_MOVIES_URL } from '../utils/consts';
 export default class MainApi {
   constructor({ url, headers }) {
     this._url = url;
@@ -20,22 +22,32 @@ export default class MainApi {
       headers: this._headers,
     }).then((res) => this._result(res));
   }
- //получаем все фильмы с сервера
- getAllMovies() {
+ //получаем все сохраненны фильмы с сервера
+ getSavedMovies() {
   return fetch(`${this._url}/movies`, {
     method: 'GET',
     headers: this._headers,
   }).then((res) => this._result(res));
 }
   //отправляем новый фильм на сервер
-  //данные берем из .....
-  createNewMovie(data) {
+  // при нажатии на лайк
+  savedMoviesLike(data) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+        trailerLink: data.trailerLink,
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: BEATFILM_MOVIES_URL + data.image.url,        
+        thumbnail: BEATFILM_MOVIES_URL + data.image.formats.thumbnail.url,
+        movieId: data.id,       
+        owner: data.user
       }),
     }).then((res) => this._result(res));
   }

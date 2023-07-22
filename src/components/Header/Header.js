@@ -12,7 +12,11 @@ export default function Header({isOpen}) {
   return (
     <header className='header'>
       <Logo />
-    {location.pathname === '/' ? ( <Sign /> ) : ( <Navigation isOpen={isOpen} /> )}
+    {location.pathname === '/' 
+    ?
+     ( <Sign /> ) 
+     : 
+     ( <Navigation isOpen={isOpen} /> )}
     </header>
   );
 }

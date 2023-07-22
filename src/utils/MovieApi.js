@@ -14,7 +14,7 @@ export default class MovieApi {
 
   //получаем все фильмы с сервера
   getAllMovies() {
-    return fetch(`${this._url}/movies`, {
+    return fetch(`${this._url}`, {
       method: 'GET',
       headers: this._headers,
     }).then((res) => this._result(res));

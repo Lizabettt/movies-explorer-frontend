@@ -20,6 +20,9 @@ import Burger from '../Burger/Burger';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
+import { BEATFILM_MOVIES_URL } from '../../utils/consts';
+import { BACKEND_URL } from '../../utils/consts';
+
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [movies, setMovies] = useState([]);
@@ -28,40 +31,57 @@ export default function App() {
   const [isClickBurger, setClickBurger] = useState(false);
   const navigate = useNavigate();
   const [luckRegister, setLuckRegister] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const[savedAllMovies, setSavedAllMovies] = useState([]);
+  const [isSaveMovie, setSaveMovie] = useState([]);
+  const [filterMovies, setFilterMovies] = useState();
 
   const mainApi = new MainApi({
-    url: 'localhost:3000', //сюда бэк
+    url: BACKEND_URL, //сюда бэк
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('jwt')}`,
     },
   });
   const movieApi = new MovieApi({
-    url: 'https://api.nomoreparties.co/beatfilm-movies',
+    url: BEATFILM_MOVIES_URL,
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  const auth = new Auth({
-    url: 'http://localhost:3000',
+  const auth = new Auth({ //и сюда бэк
+    url: BACKEND_URL,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
   //грузим фильмы и инфо пользователя с сервера
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([mainApi.getUserData(), mainApi.getAllMovies()])
-        .then(([user, movies]) => {
+      Promise.all([
+        mainApi.getUserData(),
+        mainApi.getSavedMovies(),
+        movieApi.getAllMovies(),
+      ])
+        .then(([user, savedMovies, movies]) => {
           setCurrentUser(user);
+          setSavedMovies(savedMovies);
+          localStorage.setItem('savedMoviesBox', JSON.stringify(savedMovies));
           setMovies(movies);
+          localStorage.setItem('moviesBox', JSON.stringify(movies));
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [loggedIn]);
+  useEffect(() => {
+    if (loggedIn) {
+      localStorage.setItem('savedMoviesBox', JSON.stringify(isSaveMovie));
+    }
+  }, [isSaveMovie, loggedIn]);
 
+  
   //авторизация
   function handleLogin(dataLog) {
     auth
@@ -71,12 +91,11 @@ export default function App() {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
           setEmailUserHeader(res.email);
-          navigate('/');
+          navigate('/movies');
         }
       })
       .catch((err) => {
         setLuckRegister(false);
-        // setInfoTooltipPopupOpen(true);
         console.log(err);
       });
   }
@@ -90,12 +109,10 @@ export default function App() {
           console.log('reg');
           navigate('/signin');
           setLuckRegister(true);
-          //setInfoTooltipPopupOpen(true);
         }
       })
       .catch((err) => {
         setLuckRegister(false);
-        //  setInfoTooltipPopupOpen(true);
         console.log(err);
       });
   }
@@ -130,6 +147,57 @@ export default function App() {
     localStorage.removeItem('jwt');
     navigate('/signin');
   }
+  
+  //сохранен фильм?
+  function handleMoviesSave(movie) {
+    const like =savedMovies.some(
+      (item)=>item.movieId === movie.id
+    )
+    if (!like){
+    mainApi
+    .savedMoviesLike(movie)
+    .then((newMovie) => {
+      setSavedMovies([...savedMovies, newMovie])
+    })
+  } else{
+    const notLike = savedMovies.find(
+      (item) => item.movieId === movie.id)
+      handleMoviesDelete(notLike);
+  }
+      }
+  
+  // удалить фильм
+  function handleMoviesDelete (movie) {
+    mainApi
+    .deleteMovie(movie.id)
+    .then(() => {
+  
+      setSavedAllMovies(() =>
+        savedAllMovies.filter(
+          (item) => item._id !== movie._id)
+        );
+      setSavedMovies(() =>
+        savedMovies.filter(
+          (item) => item._id !== movie._id)
+        )
+    })
+    .catch((err) => {
+      console.log(err);
+      
+    })
+    
+  };
+  function handleSearchMovies(){}
+
+  //меняем инфо пользователя
+  function handleUpdateUser(data) {
+    mainApi
+      .changeUserData(data)
+      .then(setCurrentUser)
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   // открыть бургер
   function handleOpenBurger() {
     setClickBurger(true);
@@ -153,27 +221,48 @@ export default function App() {
 
           <Route path='*' element={<NotFound />} />
           <Route
-          path='/movies'
-          element={
-          <ProtectedRouteElement            
-            loggedIn={loggedIn}
-            element={<Movies />}
-          />}/>
-           <Route
-          path='/saved-movies'
-          element={
-          <ProtectedRouteElement            
-            loggedIn={loggedIn}
-            element={<SavedMovies />}
-          />}/>
-            <Route
-          path='/profile'
-          element={
-          <ProtectedRouteElement            
-            loggedIn={loggedIn}
-            element={<Profile />}
-          />}/>
-          
+            path='/movies'
+            element={
+              <ProtectedRouteElement
+              loggedIn ={loggedIn}
+                element={Movies}
+                movies={movies}
+                filterMovies={filterMovies}
+                setFilterMovies={setFilterMovies}
+                savedMovies={savedMovies}
+                onMoviesLike={handleMoviesSave}
+                onMoviesDelete={handleMoviesDelete}
+                onSearchMovies={handleSearchMovies}
+                // кнопка ещё
+              />
+            }
+          />
+          <Route
+            path='/saved-movies'
+            element={
+              <ProtectedRouteElement
+              loggedIn={loggedIn}
+                element={SavedMovies}
+                movies={movies}
+                filterMovies={filterMovies}
+                savedMovies={savedMovies}
+                onSearchMovies={handleSearchMovies}
+                onMoviesDelete={handleMoviesDelete}
+                // сортировка по длинне фильма
+                //сохранить поиск
+                //кнопка ещё
+              />
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRouteElement
+                loggedIn={loggedIn}
+                element={<Profile />}
+              />
+            }
+          />
         </Routes>
       </main>
       <Footer />
