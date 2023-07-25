@@ -3,28 +3,30 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 export default function Movies({
-
+  currentUser,
   movies,
-  filterMovies,
-  setFilterMovies,
-  savedMovies,
-
+ savedMovies,
+ search,
+  setSearch,
+  onSearchMovies,
+  onMoviesDelete,  
   onMoviesLike,
-  onMoviesDelete,
-  onSearchMovies
+  onToggleAndshowShortMovie,
+  isShortMovie
 }) {
   return (
     <section className='movies'>
       <SearchForm 
-      filterMovies={filterMovies}
-      setFilterMovies={setFilterMovies}
+      search={search}
+      setSearch={setSearch}
       onSearchMovies={onSearchMovies}
+      onToggleAndshowShortMovie={onToggleAndshowShortMovie}
+      isShortMovie={isShortMovie}
       />
       <MoviesCardList
         movies={movies}
+        currentUser={currentUser}
         savedMovies={savedMovies}
-        filterMovies={filterMovies}
-       
         onMoviesLike={onMoviesLike}
         onMoviesDelete={onMoviesDelete}
         

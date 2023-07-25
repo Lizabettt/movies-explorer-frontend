@@ -32,9 +32,8 @@ export default function App() {
   const navigate = useNavigate();
   const [luckRegister, setLuckRegister] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
-  const[savedAllMovies, setSavedAllMovies] = useState([]);
-  const [isSaveMovie, setSaveMovie] = useState([]);
-  const [filterMovies, setFilterMovies] = useState();
+const [isShortMovie, setShortMovie] = useState(false);
+const [search, setSearch] = useState('');
 
   const mainApi = new MainApi({
     url: BACKEND_URL, //сюда бэк
@@ -49,7 +48,8 @@ export default function App() {
       'Content-Type': 'application/json',
     },
   });
-  const auth = new Auth({ //и сюда бэк
+  const auth = new Auth({
+    //и сюда бэк
     url: BACKEND_URL,
     headers: {
       'Content-Type': 'application/json',
@@ -65,22 +65,22 @@ export default function App() {
       ])
         .then(([user, savedMovies, movies]) => {
           setCurrentUser(user);
-          setSavedMovies(savedMovies);
-          localStorage.setItem('savedMoviesBox', JSON.stringify(savedMovies));
-          setMovies(movies);
-          localStorage.setItem('moviesBox', JSON.stringify(movies));
+          // сохраненные фильмы
+         // setSavedMovies(savedMovies)
+          localStorage.setItem('savedArrayMovies', JSON.stringify(savedMovies));
+          const savedArrayMovies = JSON.parse(localStorage.getItem('savedArrayMovies'));
+          setSavedMovies(savedArrayMovies);
+          
+          //все фильмы
+          localStorage.setItem('allMovies', JSON.stringify(movies));
+          const allMovies = JSON.parse(localStorage.getItem('allMovies'));
+          setMovies(allMovies);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [loggedIn]);
-  useEffect(() => {
-    if (loggedIn) {
-      localStorage.setItem('savedMoviesBox', JSON.stringify(isSaveMovie));
-    }
-  }, [isSaveMovie, loggedIn]);
-
   
   //авторизация
   function handleLogin(dataLog) {
@@ -145,49 +145,89 @@ export default function App() {
   function handleExit() {
     setLoggedIn(false);
     localStorage.removeItem('jwt');
+
     navigate('/signin');
   }
-  
-  //сохранен фильм?
+
+  //сохрани фильм
   function handleMoviesSave(movie) {
-    const like =savedMovies.some(
-      (item)=>item.movieId === movie.id
-    )
-    if (!like){
-    mainApi
-    .savedMoviesLike(movie)
-    .then((newMovie) => {
-      setSavedMovies([...savedMovies, newMovie])
-    })
-  } else{
-    const notLike = savedMovies.find(
-      (item) => item.movieId === movie.id)
-      handleMoviesDelete(notLike);
+    const isLikedMovie = savedMovies.some(
+      (item) => Number(item.movieId) === movie.movieId
+    );
+    if (!isLikedMovie) {
+      mainApi
+        .savedMoviesLike(movie)
+        .then((newMovie) => {
+          setSavedMovies([...savedMovies, newMovie]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      let deleteMovie = savedMovies.find(
+        (item) => Number(item.movieId) === movie.movieId
+      );
+      handleMoviesDelete(deleteMovie);
+    }
   }
-      }
-  
+
   // удалить фильм
-  function handleMoviesDelete (movie) {
-    mainApi
-    .deleteMovie(movie.id)
-    .then(() => {
-  
-      setSavedAllMovies(() =>
-        savedAllMovies.filter(
-          (item) => item._id !== movie._id)
+  function handleMoviesDelete(movie) {
+       mainApi
+      .deleteMovie(movie._id)
+      .then((movie) => {
+        const newSavedMovies = savedMovies.filter(
+          (updateMovie) => updateMovie._id !== movie._id
         );
-      setSavedMovies(() =>
-        savedMovies.filter(
-          (item) => item._id !== movie._id)
-        )
-    })
-    .catch((err) => {
-      console.log(err);
-      
-    })
-    
-  };
-  function handleSearchMovies(){}
+        setSavedMovies(newSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  
+
+  // короткометражка? если да, то отфилтьтруй
+  function handleToggleAndshowShortMovie(movies) {
+    if (!isShortMovie) {
+      setShortMovie(true);
+      localStorage.setItem('shortMovieCheckbox', JSON.stringify(true));
+      setMovies(movies);
+      setSavedMovies(movies);
+    } else {
+      setShortMovie(false);
+      localStorage.setItem('shortMovieCheckbox', JSON.stringify(false));
+      const filterShotMovies = movies.filter((movie) => movie.duration < 40);
+      setMovies(filterShotMovies);
+      setSavedMovies(movies);
+    }
+  }
+  //
+  
+  //поиск
+  function handleSearchMovies(e, searchEverywhere) {
+    e.preventDefault();
+    localStorage.setItem('search', search);
+    setSearch(searchEverywhere);
+    JSON.parse(localStorage.allMovies).filter(
+      (movie) =>
+        movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  // поиск в saved-movies
+  function handleSearchSavedMovies(e) {
+    e.preventDefault();
+
+    const searchedMovie = savedMovies.filter(
+      (movie) =>
+        movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(search.toLowerCase())
+    );
+    handleToggleAndshowShortMovie(searchedMovie);
+    setSearch('');
+  }
 
   //меняем инфо пользователя
   function handleUpdateUser(data) {
@@ -224,15 +264,19 @@ export default function App() {
             path='/movies'
             element={
               <ProtectedRouteElement
-              loggedIn ={loggedIn}
+                loggedIn={loggedIn}
                 element={Movies}
                 movies={movies}
-                filterMovies={filterMovies}
-                setFilterMovies={setFilterMovies}
                 savedMovies={savedMovies}
-                onMoviesLike={handleMoviesSave}
-                onMoviesDelete={handleMoviesDelete}
-                onSearchMovies={handleSearchMovies}
+                currentUser={currentUser}
+                search={search}
+                setSearch={setSearch}
+                onSearchMovies={handleSearchMovies} //искать
+                onMoviesLike={handleMoviesSave} //сохранить
+                onMoviesDelete={handleMoviesDelete} //удалить
+                onToggleAndshowShortMovie={handleToggleAndshowShortMovie} //чек бокс
+                isShortMovie={isShortMovie}
+
                 // кнопка ещё
               />
             }
@@ -241,15 +285,19 @@ export default function App() {
             path='/saved-movies'
             element={
               <ProtectedRouteElement
-              loggedIn={loggedIn}
+                loggedIn={loggedIn}
                 element={SavedMovies}
-                movies={movies}
-                filterMovies={filterMovies}
+                movies={savedMovies}
                 savedMovies={savedMovies}
-                onSearchMovies={handleSearchMovies}
-                onMoviesDelete={handleMoviesDelete}
+                currentUser={currentUser}
+                search={search}
+                setSearch={setSearch}
+                onSearchSavedMovies={handleSearchSavedMovies} //искать
+                onMoviesDelete={handleMoviesDelete} //удалить
+                onToggleAndshowShortMovie={handleToggleAndshowShortMovie} //чек бокс
+
                 // сортировка по длинне фильма
-                //сохранить поиск
+
                 //кнопка ещё
               />
             }
@@ -259,7 +307,10 @@ export default function App() {
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
-                element={<Profile />}
+                element={Profile}
+                currentUser={currentUser}
+                onUpdateUser={handleUpdateUser}
+                onClose={handleExit}
               />
             }
           />

@@ -1,6 +1,6 @@
 import './Register.css';
 import FormSign from '../FormSign/FormSign';
-import useForm from '../../hooks/useForm';
+import  useForm  from '../../hooks/useFormAndValid';
 import { useEffect } from 'react';
 
 export default function Register({ onRegister }) {

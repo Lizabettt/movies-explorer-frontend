@@ -3,10 +3,10 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 export default function MoviesCardList({
   movies,
-  onMoviesSave,
-  onMoviesLike,
-  onMoviesDelete,
   savedMovies,
+  onMoviesLike,
+  onMoviesDelete,  
+  currentUser,
 }) {
 
   return (
@@ -17,13 +17,13 @@ export default function MoviesCardList({
             {movies.map((movie) => {
               return (
                 <MoviesCard
-                  key={movie._id}
+                  key={movie.movieId || movie.id}
                   movie={movie}
-                  onMoviesSave={onMoviesSave}
+                  currentUser={currentUser}
                   onMoviesLike={onMoviesLike}
                   onMoviesDelete={onMoviesDelete}
                   savedMovies={savedMovies}
-                />
+                          />
               );
             })}
           </ul>

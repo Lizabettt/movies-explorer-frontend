@@ -59,4 +59,15 @@ export default class MainApi {
       headers: this._headers,
     }).then((res) => this._result(res));
   }
+  //меняем info пользователя
+  changeUserData(data) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about,
+      }),
+    }).then((res) => this._result(res));
+  }
 }
