@@ -57,19 +57,51 @@
     text-align: right;
 }
 
-.profile__input-help {}
+.profile__input-help {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+   
+    color: #FF3055;
+}
 
+/* .profile__input-help-active{
+    color: #2dc019;
+} */
 .inputName-err {}
 
 .inputEmail-err {}
+.profile__resultRequest{
+    padding-top: 50px;
+opacity: 1;
+text-decoration: underline;
+font-size: 14px;
 
+}
+.profile__resultRequest-invisible{
+    opacity: 0;
+}
 .profile__btn {
     padding-top: 205px;
     margin-block: 0;
     font-weight: 400;
     font-size: 13px;
+    background-color: #FFF;
+    color: #000;
+    text-decoration: none;
+    border: none;
 }
+.profile__btn-profileNotSaved{
+    color: rgb(206, 198, 198);
+    cursor: not-allowed;
 
+}
+.profile__btn-profileSaved{
+    cursor: pointer;
+}
+.profile__item-input_active{
+background-color: #E8E8E8;
+}
 .profile__btn_type_exit {
     color: #FF3055;
     padding-top: 10px;

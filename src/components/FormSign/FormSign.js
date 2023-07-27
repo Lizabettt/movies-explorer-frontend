@@ -2,18 +2,26 @@ import './FormSign.css';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 
+
+
 export default function FormSign({
-  name,
+  namePage,
   title,
   children,
   btnText,
   question,
+  link,
   linkAfterBtn,
   onChange,
-  valuesEmail,
-  valuesPassword,
-  onSubmit,
+isValid,
+handleSubmit,
+
+  values,errors
 }) {
+
+
+  
+  const btnSubmitClassName = isValid ? "formSign__btn" : "formSign__btn formSign__btn_disabled"
   return (
     <div className='formSign'>
       <div className='formSign-box'>
@@ -25,7 +33,7 @@ export default function FormSign({
           name='formSign__name'
           method='post'
           noValidate
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
         >
           {children}
 
@@ -43,11 +51,13 @@ export default function FormSign({
               maxLength='40'
               required
               autoComplete='off'
-              value={valuesEmail}
+              values={values.email || ''}
               onChange={onChange}
+
             />
+            <span className='formSign__input-help inputEmail-err'>{errors.email}</span>
           </div>
-          <span className='formSign__input-help inputEmail-err'></span>
+          
           <div className='formSign__items-inputs'>
             <label className='formSign__input-label' htmlFor='passwordInput'>
               Пароль
@@ -55,27 +65,35 @@ export default function FormSign({
             <input
               className='formSign__item-input'
               id='passwordInput'
-              type='text'
+              type='password'
               placeholder='Введите пароль'
               name='password'
               minLength='2'
               maxLength='40'
               required
               autoComplete='off'
-              value={valuesPassword}
+              values={values.password || ''}
               onChange={onChange}
+   
             />
-          </div>
-          <span className='formSign__input-help inputPassword-err'></span>
-          <div className={`formSign-btn-box formSign-btn-box_type-${name}`}>
-            <button className='formSign__btn ' type='submit'>
+            <span className='formSign__input-help inputPassword-err'>{errors.password}</span>
+          </div>          
+          <div className={`formSign-btn-box formSign-btn-box_type-${namePage}`}>
+            <button 
+            className={btnSubmitClassName} 
+            type='submit'
+            disabled={!isValid}
+
+            >
               {btnText}
             </button>
           </div>
         </form>
         <div className='formSign-afterBtn-box'>
           <p className='formSign__question'>{question}</p>
-          <Link className='formSign__link'>{linkAfterBtn}</Link>
+          <Link className='formSign__link'
+          to={link}
+          >{linkAfterBtn}</Link>
         </div>
       </div>
     </div>

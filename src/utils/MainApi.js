@@ -1,5 +1,5 @@
 
-import { BEATFILM_MOVIES_URL } from '../utils/consts';
+import { BEATFILM_URL } from '../utils/consts';
 export default class MainApi {
   constructor({ url, headers }) {
     this._url = url;
@@ -44,8 +44,8 @@ export default class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: BEATFILM_MOVIES_URL + data.image.url,        
-        thumbnail: BEATFILM_MOVIES_URL + data.image.formats.thumbnail.url,
+        image: BEATFILM_URL + data.image.url,        
+        thumbnail: BEATFILM_URL + data.image.formats.thumbnail.url,
         movieId: data.id,       
         owner: data.user
       }),
@@ -66,7 +66,7 @@ export default class MainApi {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.about,
+        email: data.email,
       }),
     }).then((res) => this._result(res));
   }

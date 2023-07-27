@@ -27,10 +27,12 @@
     gap: 12px;    
 }
 
+
 .formSign__items-inputs {
     display: flex;
     flex-direction: column;
     width: 396px;
+    position: relative;
     
 }
 
@@ -55,11 +57,25 @@
     line-height: 17px;
 }
 
-.formSign__input-help {}
+.formSign__input-help {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+   
+    color: #FF3055;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 45px;
+}
 
-.inputEmail-err {}
+.inputEmail-err {
+   
+}
 
-.inputPassword-err {}
+.inputPassword-err {
+
+}
 
 .formSign-btn-box {
     
@@ -83,8 +99,12 @@
     border-radius: 3px;
     width: 100%;
     color: white;
+    cursor: pointer;
 }
-
+.formSign__btn_disabled{
+    background-color:#A0A0A0;
+    cursor: not-allowed;
+}
 .formSign__question {
     margin-block: 0;
     color: #A0A0A0;

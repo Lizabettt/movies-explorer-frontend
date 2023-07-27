@@ -1,33 +1,39 @@
 import './Login.css';
 import FormSign from '../FormSign/FormSign';
-import { useEffect } from 'react';
 import  useForm  from '../../hooks/useFormAndValid';
+import { useEffect } from 'react';
 
 export default function Login({ onLogin }) {
-  const { values, setValues, handleChange } = useForm({});
+
+  const { values, setValues, handleChange, errors, isValid } = useForm({});
+  
 
   useEffect(() => {
     setValues({});
   }, [setValues]);
+  
 
-  console.log(values);
   function handleSubmit(evt) {
     evt.preventDefault();
+  
     onLogin(values);
     console.log(values);
   }
   return (
     <FormSign
-      name='login'
+      namePage='login'
       title='Рады видеть!'
       btnText='Войти'
       nameColor='login'
       question='Ещё не зарегистрированы?'
+      link="/signup"
       linkAfterBtn='Регистрация'
-      onSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
       onChange={handleChange}
-      valuesEmail={values.email || ''}
-      valuesPassword={values.password || ''}
-    ></FormSign>
+     
+      isValid={isValid}
+      values={values}
+      errors={errors}
+      ></FormSign>
   );
 }

@@ -34,6 +34,9 @@ export default function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 const [isShortMovie, setShortMovie] = useState(false);
 const [search, setSearch] = useState('');
+const [isRequestCompleted, setRequestCompleted] = useState(false);
+const [serverError, setServerError] = useState({});
+
 
   const mainApi = new MainApi({
     url: BACKEND_URL, //сюда бэк
@@ -90,13 +93,14 @@ const [search, setSearch] = useState('');
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
-          setEmailUserHeader(res.email);
+          //setEmailUserHeader(res.email);
           navigate('/movies');
         }
       })
       .catch((err) => {
         setLuckRegister(false);
         console.log(err);
+        setServerError(err);
       });
   }
 
@@ -114,6 +118,7 @@ const [search, setSearch] = useState('');
       .catch((err) => {
         setLuckRegister(false);
         console.log(err);
+        setServerError(err);
       });
   }
 
@@ -233,9 +238,14 @@ const [search, setSearch] = useState('');
   function handleUpdateUser(data) {
     mainApi
       .changeUserData(data)
-      .then(setCurrentUser)
+      .then((data) => {
+      console.log(data)
+      setCurrentUser(data);
+      setRequestCompleted(true)})
       .catch((err) => {
         console.log(err);
+        setServerError(err);
+        setRequestCompleted(false)
       });
   }
   // открыть бургер
@@ -253,10 +263,20 @@ const [search, setSearch] = useState('');
       <main className='main'>
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route path='/signin' element={<Login onLogin={handleLogin} />} />
+          <Route 
+          path='/signin' 
+          element={<Login 
+            loggedIn={loggedIn}
+          onLogin={handleLogin} 
+          serverError={serverError}
+          />} />
           <Route
             path='/signup'
-            element={<Register onRegister={handleRegister} />}
+            element={<Register 
+              loggedIn={loggedIn}
+              onRegister={handleRegister} 
+              serverError={serverError}
+              />}
           />
 
           <Route path='*' element={<NotFound />} />
@@ -308,9 +328,11 @@ const [search, setSearch] = useState('');
               <ProtectedRouteElement
                 loggedIn={loggedIn}
                 element={Profile}
-                currentUser={currentUser}
+                //currentUser={currentUser}
                 onUpdateUser={handleUpdateUser}
                 onClose={handleExit}
+                isRequestCompleted={isRequestCompleted}
+                //serverError={serverError}
               />
             }
           />
