@@ -13,21 +13,18 @@ export default function MoviesCard({
   const isLiked = savedMovies
     ? savedMovies.some((item) => item.movieId === movie.id)
     : false;
+  const saved = savedMovies
+    ? savedMovies.find((item) => item.movieId === movie.id)
+    : '';
 
   const moviesSavedButtonClassName = isLiked
     ? 'moviesCard__btn moviesCard__btn-moviesSaved'
     : 'moviesCard__btn moviesCard__btn-moviesNotSaved';
 
-  const handleClickIconMovies = isLiked
-    ? () => onMoviesDelete(movie)
-    : () => onMoviesLike(movie);
-
   const moviesCardPic = movie.image.url
     ? `${BEATFILM_URL}${movie.image.url}`
     : movie.image;
-    function handleDelete(movie) {
-      onMoviesDelete(movie);
-  }
+
   return (
     <li className='moviesCard'>
       <div className='moviesCard__box'>
@@ -38,12 +35,12 @@ export default function MoviesCard({
         {location.pathname === '/movies' ? (
           <button
             className={moviesSavedButtonClassName}
-            onClick={handleClickIconMovies}
+            onClick={() => onMoviesLike(movie, isLiked, saved?._id)}
           ></button>
         ) : (
           <button
             className='moviesCard__btn moviesCard__btn-delete'
-            onClick={() => handleDelete(movie)}
+            onClick={() => onMoviesDelete(movie._id)}
           ></button>
         )}
       </div>

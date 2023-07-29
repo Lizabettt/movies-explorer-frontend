@@ -155,34 +155,35 @@ const [serverError, setServerError] = useState({});
   }
 
   //сохрани фильм
-  function handleMoviesSave(movie) {
-    const isLikedMovie = savedMovies.some(
-      (item) => Number(item.movieId) === movie.movieId
-    );
-    if (!isLikedMovie) {
+  function handleMoviesSave(movie, isLiked, id) {
+  
+     if (!isLiked) {
       mainApi
         .savedMoviesLike(movie)
         .then((newMovie) => {
           setSavedMovies([...savedMovies, newMovie]);
+          console.log(newMovie);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      let deleteMovie = savedMovies.find(
-        (item) => Number(item.movieId) === movie.movieId
-      );
-      handleMoviesDelete(deleteMovie);
+      
+      handleMoviesDelete(id);
     }
   }
 
   // удалить фильм
   function handleMoviesDelete(movie) {
+    if (typeof movie === 'object') {
+      movie = movie._id;
+  }
        mainApi
-      .deleteMovie(movie._id)
-      .then((movie) => {
+      .deleteMovie(movie)
+      .then(() => {
+        console.log(movie);
         const newSavedMovies = savedMovies.filter(
-          (updateMovie) => updateMovie._id !== movie._id
+          (updateMovie) => movie !== movie._id
         );
         setSavedMovies(newSavedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
@@ -195,43 +196,43 @@ const [serverError, setServerError] = useState({});
 
   // короткометражка? если да, то отфилтьтруй
   function handleToggleAndshowShortMovie(movies) {
-    if (!isShortMovie) {
-      setShortMovie(true);
-      localStorage.setItem('shortMovieCheckbox', JSON.stringify(true));
-      setMovies(movies);
-      setSavedMovies(movies);
-    } else {
-      setShortMovie(false);
-      localStorage.setItem('shortMovieCheckbox', JSON.stringify(false));
-      const filterShotMovies = movies.filter((movie) => movie.duration < 40);
-      setMovies(filterShotMovies);
-      setSavedMovies(movies);
-    }
+    // if (!isShortMovie) {
+    //   setShortMovie(true);
+    //   localStorage.setItem('shortMovieCheckbox', JSON.stringify(true));
+    //   setMovies(movies);
+    //   setSavedMovies(movies);
+    // } else {
+    //   setShortMovie(false);
+    //   localStorage.setItem('shortMovieCheckbox', JSON.stringify(false));
+    //   const filterShotMovies = movies.filter((movie) => movie.duration < 40);
+    //   setMovies(filterShotMovies);
+    //   setSavedMovies(movies);
+    // }
   }
   //
   
   //поиск
   function handleSearchMovies(e, searchEverywhere) {
-    e.preventDefault();
-    localStorage.setItem('search', search);
-    setSearch(searchEverywhere);
-    JSON.parse(localStorage.allMovies).filter(
-      (movie) =>
-        movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
-        movie.nameEN.toLowerCase().includes(search.toLowerCase())
-    );
+    // e.preventDefault();
+    // localStorage.setItem('search', search);
+    // setSearch(searchEverywhere);
+    // JSON.parse(localStorage.allMovies).filter(
+    //   (movie) =>
+    //     movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
+    //     movie.nameEN.toLowerCase().includes(search.toLowerCase())
+    // );
   }
   // поиск в saved-movies
   function handleSearchSavedMovies(e) {
-    e.preventDefault();
+    // e.preventDefault();
 
-    const searchedMovie = savedMovies.filter(
-      (movie) =>
-        movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
-        movie.nameEN.toLowerCase().includes(search.toLowerCase())
-    );
-    handleToggleAndshowShortMovie(searchedMovie);
-    setSearch('');
+    // const searchedMovie = savedMovies.filter(
+    //   (movie) =>
+    //     movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
+    //     movie.nameEN.toLowerCase().includes(search.toLowerCase())
+    // );
+    // handleToggleAndshowShortMovie(searchedMovie);
+    // setSearch('');
   }
 
   //меняем инфо пользователя
