@@ -17,7 +17,7 @@ export default function MoviesCardList({
             {movies.map((movie) => {
               return (
                 <MoviesCard
-                  key={movie.movieId || movie.id}
+                  key={movie.id}
                   movie={movie}
                   currentUser={currentUser}
                   onMoviesLike={onMoviesLike}

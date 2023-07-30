@@ -174,17 +174,12 @@ const [serverError, setServerError] = useState({});
   }
 
   // удалить фильм
-  function handleMoviesDelete(movie) {
-    if (typeof movie === 'object') {
-      movie = movie._id;
-  }
-       mainApi
-      .deleteMovie(movie)
+  function handleMoviesDelete(id) {
+    console.log(id);
+    mainApi
+      .deleteMovie(id)
       .then(() => {
-        console.log(movie);
-        const newSavedMovies = savedMovies.filter(
-          (updateMovie) => movie !== movie._id
-        );
+        const newSavedMovies = savedMovies.filter((movie) => id !== movie._id);
         setSavedMovies(newSavedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
       })
@@ -192,7 +187,6 @@ const [serverError, setServerError] = useState({});
         console.log(err);
       });
   }
-  
 
   // короткометражка? если да, то отфилтьтруй
   function handleToggleAndshowShortMovie(movies) {
@@ -260,7 +254,7 @@ const [serverError, setServerError] = useState({});
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isOpen={handleOpenBurger} />
+      <Header isOpen={handleOpenBurger} loggedIn={loggedIn}/>
       <main className='main'>
         <Routes>
           <Route path='/' element={<Main />} />

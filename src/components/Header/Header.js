@@ -6,17 +6,17 @@ import Navigation from '../Navigation/Navigation';
 import Sign from '../Sign/Sign';
 import Logo from '../Logo/Logo';
 
-export default function Header({isOpen}) {
+export default function Header({isOpen, loggedIn}) {
   const location = useLocation();
 
   return (
     <header className='header'>
       <Logo />
-    {location.pathname === '/' 
+    {loggedIn 
     ?
-     ( <Sign /> ) 
+     ( <Navigation isOpen={isOpen} /> ) 
      : 
-     ( <Navigation isOpen={isOpen} /> )}
+     ( <Sign /> )}
     </header>
   );
 }
