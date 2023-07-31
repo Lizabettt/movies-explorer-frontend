@@ -5,10 +5,23 @@ export default function MoviesCardList({
   movies,
   savedMovies,
   onMoviesLike,
-  onMoviesDelete,  
-  currentUser,
+  onMoviesDelete, 
+
+  filteredMovies,
+  renderMovies,
+  setNextMovies,
+  screenWidth
 }) {
 
+
+//кнопка
+const handleClickButtonMore = () => {
+  if (screenWidth < 1280) {
+    setNextMovies((prev) => prev + 2);
+  } else if (screenWidth >= 1280) {
+    setNextMovies((prev) => prev + 3);
+  }
+};
   return (
     <section className='moviesCardList'>
       <div className='moviesCardList__box'>
@@ -17,9 +30,8 @@ export default function MoviesCardList({
             {movies.map((movie) => {
               return (
                 <MoviesCard
-                  key={movie.id}
+                  key={movie.id || movie.movieId}
                   movie={movie}
-                  currentUser={currentUser}
                   onMoviesLike={onMoviesLike}
                   onMoviesDelete={onMoviesDelete}
                   savedMovies={savedMovies}
@@ -28,7 +40,17 @@ export default function MoviesCardList({
             })}
           </ul>
           <div className='moviesCardList__btn-box'>
-            <button className='moviesCardList__btn btn'>Ещё</button>
+          {filteredMovies.length 
+        > renderMovies.length 
+        ? (
+            <button 
+            className='moviesCardList__btn btn'
+            onClick={handleClickButtonMore}
+            type='button'
+            >Ещё</button>
+            ) : (
+          ''
+        )}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute';
 
 import MainApi from '../../utils/MainApi';
@@ -25,18 +25,19 @@ import { BACKEND_URL } from '../../utils/consts';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
-  const [movies, setMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [emailUserHeader, setEmailUserHeader] = useState('');
+
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+
   const [isClickBurger, setClickBurger] = useState(false);
   const navigate = useNavigate();
-  const [luckRegister, setLuckRegister] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
-const [isShortMovie, setShortMovie] = useState(false);
-const [search, setSearch] = useState('');
-const [isRequestCompleted, setRequestCompleted] = useState(false);
-const [serverError, setServerError] = useState({});
+  //const [luckRegister, setLuckRegister] = useState(false);
 
+  const [isRequestCompleted, setRequestCompleted] = useState(false);
+
+  const [serverError, setServerError] = useState({});
+  const [isMoviesError, setIsMoviesError] = useState(false);
 
   const mainApi = new MainApi({
     url: BACKEND_URL, //сюда бэк
@@ -69,22 +70,28 @@ const [serverError, setServerError] = useState({});
         .then(([user, savedMovies, movies]) => {
           setCurrentUser(user);
           // сохраненные фильмы
-         // setSavedMovies(savedMovies)
+
           localStorage.setItem('savedArrayMovies', JSON.stringify(savedMovies));
-          const savedArrayMovies = JSON.parse(localStorage.getItem('savedArrayMovies'));
+          const savedArrayMovies = JSON.parse(
+            localStorage.getItem('savedArrayMovies')
+          );
           setSavedMovies(savedArrayMovies);
-          
+
           //все фильмы
           localStorage.setItem('allMovies', JSON.stringify(movies));
           const allMovies = JSON.parse(localStorage.getItem('allMovies'));
           setMovies(allMovies);
+          console.log(allMovies);
+
+          setIsMoviesError(false);
         })
         .catch((err) => {
           console.log(err);
+          setIsMoviesError(true);
         });
     }
   }, [loggedIn]);
-  
+
   //авторизация
   function handleLogin(dataLog) {
     auth
@@ -93,12 +100,11 @@ const [serverError, setServerError] = useState({});
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
-          //setEmailUserHeader(res.email);
           navigate('/movies');
         }
       })
       .catch((err) => {
-        setLuckRegister(false);
+        // setLuckRegister(false);
         console.log(err);
         setServerError(err);
       });
@@ -112,11 +118,11 @@ const [serverError, setServerError] = useState({});
         if (data) {
           console.log('reg');
           navigate('/signin');
-          setLuckRegister(true);
+          // setLuckRegister(true);
         }
       })
       .catch((err) => {
-        setLuckRegister(false);
+        // setLuckRegister(false);
         console.log(err);
         setServerError(err);
       });
@@ -131,7 +137,7 @@ const [serverError, setServerError] = useState({});
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setEmailUserHeader(res.email);
+            // setEmailUserHeader(res.email);
             navigate('/');
             console.log('token');
           }
@@ -144,7 +150,7 @@ const [serverError, setServerError] = useState({});
   // eslint-disable-next-line
   useEffect(() => {
     handleToken();
-  }, [loggedIn]); //  loggedIn
+  }, [loggedIn]);
 
   //выход
   function handleExit() {
@@ -156,8 +162,7 @@ const [serverError, setServerError] = useState({});
 
   //сохрани фильм
   function handleMoviesSave(movie, isLiked, id) {
-  
-     if (!isLiked) {
+    if (!isLiked) {
       mainApi
         .savedMoviesLike(movie)
         .then((newMovie) => {
@@ -168,7 +173,6 @@ const [serverError, setServerError] = useState({});
           console.log(err);
         });
     } else {
-      
       handleMoviesDelete(id);
     }
   }
@@ -187,60 +191,19 @@ const [serverError, setServerError] = useState({});
         console.log(err);
       });
   }
-
-  // короткометражка? если да, то отфилтьтруй
-  function handleToggleAndshowShortMovie(movies) {
-    // if (!isShortMovie) {
-    //   setShortMovie(true);
-    //   localStorage.setItem('shortMovieCheckbox', JSON.stringify(true));
-    //   setMovies(movies);
-    //   setSavedMovies(movies);
-    // } else {
-    //   setShortMovie(false);
-    //   localStorage.setItem('shortMovieCheckbox', JSON.stringify(false));
-    //   const filterShotMovies = movies.filter((movie) => movie.duration < 40);
-    //   setMovies(filterShotMovies);
-    //   setSavedMovies(movies);
-    // }
-  }
-  //
-  
-  //поиск
-  function handleSearchMovies(e, searchEverywhere) {
-    // e.preventDefault();
-    // localStorage.setItem('search', search);
-    // setSearch(searchEverywhere);
-    // JSON.parse(localStorage.allMovies).filter(
-    //   (movie) =>
-    //     movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
-    //     movie.nameEN.toLowerCase().includes(search.toLowerCase())
-    // );
-  }
-  // поиск в saved-movies
-  function handleSearchSavedMovies(e) {
-    // e.preventDefault();
-
-    // const searchedMovie = savedMovies.filter(
-    //   (movie) =>
-    //     movie.nameRU.toLowerCase().includes(search.toLowerCase()) ||
-    //     movie.nameEN.toLowerCase().includes(search.toLowerCase())
-    // );
-    // handleToggleAndshowShortMovie(searchedMovie);
-    // setSearch('');
-  }
-
   //меняем инфо пользователя
   function handleUpdateUser(data) {
     mainApi
       .changeUserData(data)
       .then((data) => {
-      console.log(data)
-      setCurrentUser(data);
-      setRequestCompleted(true)})
+        console.log(data);
+        setCurrentUser(data);
+        setRequestCompleted(true);
+      })
       .catch((err) => {
         console.log(err);
         setServerError(err);
-        setRequestCompleted(false)
+        setRequestCompleted(false);
       });
   }
   // открыть бургер
@@ -254,24 +217,29 @@ const [serverError, setServerError] = useState({});
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isOpen={handleOpenBurger} loggedIn={loggedIn}/>
+      <Header isOpen={handleOpenBurger} loggedIn={loggedIn} />
       <main className='main'>
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route 
-          path='/signin' 
-          element={<Login 
-            loggedIn={loggedIn}
-          onLogin={handleLogin} 
-          serverError={serverError}
-          />} />
+          <Route
+            path='/signin'
+            element={
+              <Login
+                loggedIn={loggedIn}
+                onLogin={handleLogin}
+                serverError={serverError}
+              />
+            }
+          />
           <Route
             path='/signup'
-            element={<Register 
-              loggedIn={loggedIn}
-              onRegister={handleRegister} 
-              serverError={serverError}
-              />}
+            element={
+              <Register
+                loggedIn={loggedIn}
+                onRegister={handleRegister}
+                serverError={serverError}
+              />
+            }
           />
 
           <Route path='*' element={<NotFound />} />
@@ -283,16 +251,9 @@ const [serverError, setServerError] = useState({});
                 element={Movies}
                 movies={movies}
                 savedMovies={savedMovies}
-                currentUser={currentUser}
-                search={search}
-                setSearch={setSearch}
-                onSearchMovies={handleSearchMovies} //искать
+                moviesError={isMoviesError}
                 onMoviesLike={handleMoviesSave} //сохранить
                 onMoviesDelete={handleMoviesDelete} //удалить
-                onToggleAndshowShortMovie={handleToggleAndshowShortMovie} //чек бокс
-                isShortMovie={isShortMovie}
-
-                // кнопка ещё
               />
             }
           />
@@ -305,15 +266,7 @@ const [serverError, setServerError] = useState({});
                 movies={savedMovies}
                 savedMovies={savedMovies}
                 currentUser={currentUser}
-                search={search}
-                setSearch={setSearch}
-                onSearchSavedMovies={handleSearchSavedMovies} //искать
                 onMoviesDelete={handleMoviesDelete} //удалить
-                onToggleAndshowShortMovie={handleToggleAndshowShortMovie} //чек бокс
-
-                // сортировка по длинне фильма
-
-                //кнопка ещё
               />
             }
           />
@@ -323,11 +276,9 @@ const [serverError, setServerError] = useState({});
               <ProtectedRouteElement
                 loggedIn={loggedIn}
                 element={Profile}
-                //currentUser={currentUser}
                 onUpdateUser={handleUpdateUser}
                 onClose={handleExit}
                 isRequestCompleted={isRequestCompleted}
-                //serverError={serverError}
               />
             }
           />

@@ -1,17 +1,16 @@
 import './FilterCheckbox.css';
 
 export default function FilterCheckbox({
-  onToggleAndshowShortMovie,
-  isShortMovie,
+  checkboxChange, isChecked
 }) {
   return (
-    <label className='filterСheckbox' id='checkbox'>
+    <label className='filterСheckbox'  htmlFor="switch">
       <input
         className='filterCheckbox-input'
         type='checkbox'
-        id='checkbox'
-        checked={isShortMovie}
-        onChange={() => onToggleAndshowShortMovie(isShortMovie)}
+        id="switch"
+        onChange={checkboxChange}
+          checked={isChecked || ""}
       ></input>
       <span className='filterCheckbox-text'>Короткометражки</span>
     </label>
