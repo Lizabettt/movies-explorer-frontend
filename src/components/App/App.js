@@ -68,21 +68,16 @@ export default function App() {
         movieApi.getAllMovies(),
       ])
         .then(([user, savedMovies, movies]) => {
+          // задаем стейты
           setCurrentUser(user);
-          // сохраненные фильмы
-
-          localStorage.setItem('savedArrayMovies', JSON.stringify(savedMovies));
-          const savedArrayMovies = JSON.parse(
-            localStorage.getItem('savedArrayMovies')
+          setSavedMovies(savedMovies);
+          setMovies(movies);
+          console.log('я стейт фильмов', movies)
+          console.log('я стейт сохраненных',savedMovies)
+          console.log('я стейт юзера',user)
+         // localStorage.setItem("movies", JSON.stringify(movies));
+          localStorage.setItem("savedArrayMovies", JSON.stringify(savedMovies)
           );
-          setSavedMovies(savedArrayMovies);
-
-          //все фильмы
-          localStorage.setItem('allMovies', JSON.stringify(movies));
-          const allMovies = JSON.parse(localStorage.getItem('allMovies'));
-          setMovies(allMovies);
-          console.log(allMovies);
-
           setIsMoviesError(false);
         })
         .catch((err) => {
@@ -91,7 +86,13 @@ export default function App() {
         });
     }
   }, [loggedIn]);
+  const localFavoriteMovies = localStorage.getItem('savedArrayMovies');
 
+  useEffect(() => {
+    if (localFavoriteMovies) {
+      setSavedMovies(JSON.parse(localFavoriteMovies));
+    }
+  }, [localFavoriteMovies]);
   //авторизация
   function handleLogin(dataLog) {
     auth

@@ -5,23 +5,22 @@ export default function MoviesCardList({
   movies,
   savedMovies,
   onMoviesLike,
-  onMoviesDelete, 
-
+  onMoviesDelete,
+  moviesError,
   filteredMovies,
   renderMovies,
   setNextMovies,
-  screenWidth
+  screenWidth,
 }) {
-
-
-//кнопка
-const handleClickButtonMore = () => {
-  if (screenWidth < 1280) {
-    setNextMovies((prev) => prev + 2);
-  } else if (screenWidth >= 1280) {
-    setNextMovies((prev) => prev + 3);
-  }
-};
+  //кнопка
+  const handleClickButtonMore = () => {
+    console.log('screenWidth', screenWidth);
+    if (screenWidth < 1280) {
+      setNextMovies((prev) => prev + 2);
+    } else if (screenWidth >= 1280) {
+      setNextMovies((prev) => prev + 3);
+    }
+  };
   return (
     <section className='moviesCardList'>
       <div className='moviesCardList__box'>
@@ -35,23 +34,32 @@ const handleClickButtonMore = () => {
                   onMoviesLike={onMoviesLike}
                   onMoviesDelete={onMoviesDelete}
                   savedMovies={savedMovies}
-                          />
+                />
               );
             })}
           </ul>
-          <div className='moviesCardList__btn-box'>
-          {filteredMovies.length 
-        > renderMovies.length 
-        ? (
-            <button 
-            className='moviesCardList__btn btn'
-            onClick={handleClickButtonMore}
-            type='button'
-            >Ещё</button>
+          {/* <div className='moviesCardList__btn-box'>
+            {(filteredMovies.length,
+            console.log(
+              'filteredMovies длина для кнопки',
+              filteredMovies.length
+            )) >
+            (renderMovies.length,
+            console.log(
+              'filteredMovies длина для кнопки',
+              renderMovies.length
+            )) ? (
+              <button
+                className='moviesCardList__btn btn'
+                onClick={handleClickButtonMore}
+                type='button'
+              >
+                Ещё
+              </button>
             ) : (
-          ''
-        )}
-          </div>
+              ''
+            )}
+          </div> */}
         </div>
       </div>
     </section>
