@@ -11,6 +11,8 @@ export default function SearchForm({
 }) {
   const [inputError, setInputError] = useState('');
 
+ 
+
   function handleSubmit (evt) {
     evt.preventDefault();
 
@@ -21,6 +23,7 @@ export default function SearchForm({
       return;
     }
     onFilterMovies(inputValueText, checkedCheckbox);
+    console.log(checkedCheckbox);
     console.log(inputValueText);
   };
 

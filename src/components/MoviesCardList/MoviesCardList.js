@@ -7,20 +7,13 @@ export default function MoviesCardList({
   onMoviesLike,
   onMoviesDelete,
   moviesError,
-  filteredMovies,
-  renderMovies,
-  setNextMovies,
-  screenWidth,
+  // filteredMovies,
+  // renderMovies,
+  // setNextMovies,
+  // screenWidth,
 }) {
-  //кнопка
-  const handleClickButtonMore = () => {
-    console.log('screenWidth', screenWidth);
-    if (screenWidth < 1280) {
-      setNextMovies((prev) => prev + 2);
-    } else if (screenWidth >= 1280) {
-      setNextMovies((prev) => prev + 3);
-    }
-  };
+  
+  
   return (
     <section className='moviesCardList'>
       <div className='moviesCardList__box'>

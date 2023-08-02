@@ -10,6 +10,7 @@ export default function Movies({
   moviesError,
   onMoviesLike,
   onMoviesDelete,
+
 }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
@@ -21,12 +22,13 @@ export default function Movies({
   const [nextMovies, setNextMovies] = useState(0);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const searchedMovies = localStorage.getItem('searchedMovies');
+  const faindMovies = localStorage.getItem('faindMovies');
   const inputValueLocal = localStorage.getItem('inputValueLocal');
   const checkboxLocal = localStorage.getItem('checkboxLocal');
 
+  
   //изменение чекбокса
-  const handleCheckboxChange = () => {
+ function handleCheckboxChange () {
     if (inputValueText !== '') {
       setCheckedCheckbox(!checkedCheckbox);
       handleFilterMovies(inputValueText, !checkedCheckbox);
@@ -43,6 +45,7 @@ export default function Movies({
 
     setTimeout(() => {
       let newFilteredArray = [];
+      // если чекбокс включен
       if (isCheckedState) {
         newFilteredArray = movies.filter((movie) => {
           return (
@@ -52,11 +55,11 @@ export default function Movies({
           );
         });
         setFilteredMovies(newFilteredArray);
-        localStorage.setItem(
-          'searchedMovies',
-          JSON.stringify(newFilteredArray)
-        );
-      } else if (!isCheckedState) {
+        localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
+        console.log('найденные фильмы', newFilteredArray);
+        console.log('нажат чекбокс?', isCheckedState);
+      } else if (!isCheckedState) { 
+        //если чекбокс выключен
         newFilteredArray = movies.filter((movie) => {
           return (
             movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
@@ -65,10 +68,7 @@ export default function Movies({
         });
 
         setFilteredMovies(newFilteredArray);
-        localStorage.setItem(
-          'searchedMovies',
-          JSON.stringify(newFilteredArray)
-        );
+        localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
         console.log('найденные фильмы', newFilteredArray);
         console.log('нажат чекбокс?', isCheckedState);
       }
@@ -86,12 +86,12 @@ export default function Movies({
 
   //рендер
   const renderMovies = useMemo(() => {
-    console.log('filteredMovies длина', filteredMovies.length);
+    console.log('Кол-во найденых фильмов', filteredMovies.length);
 
-    const cardsCounter = screenWidth < 768 ? 5 : screenWidth < 1280 ? 8 : 12;
-    console.log('cardsCounter', cardsCounter);
+    const pageContentMovies= screenWidth < 768 ? 5 : screenWidth < 1280 ? 8 : 12;
+    console.log('pageContentMovies ->', pageContentMovies);
 
-    return filteredMovies.slice(0, cardsCounter + nextMovies);
+    return filteredMovies.slice(0, pageContentMovies + nextMovies);
   }, [nextMovies, screenWidth, filteredMovies]);
   //кнопка
   const handleClickButtonMore = () => {
@@ -116,8 +116,9 @@ export default function Movies({
   }, [handleResize]);
 
   useEffect(() => {
-    if (searchedMovies) {
-      setFilteredMovies(JSON.parse(searchedMovies));
+    if (faindMovies) {
+      console.log(" сет найденых фильмов", JSON.parse(faindMovies));
+      setFilteredMovies(JSON.parse(faindMovies));
     }
     if (checkboxLocal) {
       setCheckedCheckbox(JSON.parse(checkboxLocal));
@@ -125,17 +126,18 @@ export default function Movies({
     if (inputValueLocal) {
       setInputValueText(JSON.parse(inputValueLocal));
     }
-  }, [searchedMovies, checkboxLocal, inputValueLocal]);
+  }, [faindMovies, checkboxLocal, inputValueLocal]);
+
+
   return (
     <section className='movies'>
       <SearchForm
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
-        checkedCheckbox={checkedCheckbox}
+       checkedCheckbox={checkedCheckbox} 
         setInputValueText={setInputValueText}
         inputValueText={inputValueText}
-        //handleInputChange={handleSearchChange}
-       
+                
       />
       {errorApi ? (
         <p className='movies__errorApi error'>
@@ -152,18 +154,15 @@ export default function Movies({
           onMoviesLike={onMoviesLike}
           onMoviesDelete={onMoviesDelete}
           moviesError={moviesError}
-          //для кнопки
-          // filteredMovies={filteredMovies}
-          // renderMovies={renderMovies}
-          // setNextMovies={setNextMovies}
-          // screenWidth={screenWidth}
-        />
+           />
       )}
       <div className='moviesCardList__btn-box'>
-        {(filteredMovies.length,
-        console.log('filteredMovies длина для кнопки', filteredMovies.length)) >
-        (renderMovies.length,
-        console.log('filteredMovies длина для кнопки', renderMovies.length)) ? (
+        {(filteredMovies.length
+        //,  console.log('filteredMovies длина для кнопки', filteredMovies.length)
+        ) >
+        (renderMovies.length
+         // , console.log('filteredMovies длина для кнопки', renderMovies.length)
+          ) ? (
           <button
             className='moviesCardList__btn btn'
             onClick={handleClickButtonMore}

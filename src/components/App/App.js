@@ -61,6 +61,7 @@ export default function App() {
   });
   //грузим фильмы и инфо пользователя с сервера
   useEffect(() => {
+    
     if (loggedIn) {
       Promise.all([
         mainApi.getUserData(),
@@ -76,8 +77,8 @@ export default function App() {
           console.log('я стейт сохраненных',savedMovies)
           console.log('я стейт юзера',user)
          // localStorage.setItem("movies", JSON.stringify(movies));
-          localStorage.setItem("savedArrayMovies", JSON.stringify(savedMovies)
-          );
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+
           setIsMoviesError(false);
         })
         .catch((err) => {
@@ -86,13 +87,19 @@ export default function App() {
         });
     }
   }, [loggedIn]);
-  const localFavoriteMovies = localStorage.getItem('savedArrayMovies');
+  
+ const savedMoviesLocal=localStorage.getItem('savedMovies');
 
-  useEffect(() => {
-    if (localFavoriteMovies) {
-      setSavedMovies(JSON.parse(localFavoriteMovies));
-    }
-  }, [localFavoriteMovies]);
+function getSavedMoviesLocal(movie){  
+   if (movie){
+    setSavedMovies(JSON.parse(movie))
+  }
+}
+
+  useEffect(() => {   
+    getSavedMoviesLocal(savedMoviesLocal)
+  }, [savedMoviesLocal]);
+
   //авторизация
   function handleLogin(dataLog) {
     auth
@@ -216,6 +223,9 @@ export default function App() {
     setClickBurger(false);
   }
 
+
+
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isOpen={handleOpenBurger} loggedIn={loggedIn} />
@@ -255,6 +265,7 @@ export default function App() {
                 moviesError={isMoviesError}
                 onMoviesLike={handleMoviesSave} //сохранить
                 onMoviesDelete={handleMoviesDelete} //удалить
+
               />
             }
           />
