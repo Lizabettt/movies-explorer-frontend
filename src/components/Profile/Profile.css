@@ -1,0 +1,146 @@
+.profile {
+  position: absolute;
+  padding-top: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+}
+
+.profile__title {
+  margin-block: 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.profile__form {
+  padding-top: 121px;
+  padding-bottom: 70px;
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+  align-items: center;
+  width: 410px;
+}
+
+.profile__items-inputs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.profile__items-inputs:first-child {
+  border-bottom: 1px #e8e8e8 solid;
+  height: 33px;
+}
+
+.profile__input-label {
+  padding-top: 4px;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.profile__item-input {
+  background-color: white;
+  padding: 0;
+  border: none;
+}
+
+.profile__item-input::placeholder {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+}
+
+.profile__input-help {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #ff3055;
+}
+
+.profile__resultRequest {
+  padding-top: 50px;
+  opacity: 1;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.profile__resultRequest-invisible {
+  opacity: 0;
+}
+
+.profile__btn {
+  padding-top: 205px;
+  margin-block: 0;
+  font-weight: 400;
+  font-size: 13px;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+  border: none;
+}
+
+.profile__btn-profileSaved:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.profile__btn-profileNotSaved {
+  color: rgb(206, 198, 198);
+  cursor: not-allowed;
+}
+
+.profile__btn-profileSaved {
+  cursor: pointer;
+}
+
+.profile__item-input_active {
+  background-color: #e8e8e8;
+}
+
+.profile__btn_type_exit {
+  color: #ff3055;
+  padding-top: 10px;
+  transition: 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 770px) {
+  .profile {
+    padding-top: 215px;
+  }
+
+  .profile__form {
+    padding-top: 93px;
+  }
+
+  .profile__btn {
+    padding-top: 195px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile {
+    padding-top: 55px;
+  }
+
+  .profile__form {
+    padding-top: 78px;
+    width: 260px;
+  }
+
+  .profile__btn {
+    padding-top: 363px;
+  }
+
+  .profile__btn {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

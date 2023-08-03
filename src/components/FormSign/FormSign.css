@@ -1,0 +1,145 @@
+.formSign {
+    position: absolute;
+    top: -90px;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    height: 500px;
+    padding-top: 62px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formSign__title {
+    margin-block: 0;
+
+    padding-top: 37px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.formSign__form {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.formSign__items-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 396px;
+    position: relative;
+}
+
+.formSign__input-label {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+}
+
+.formSign__item-input {
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #E8E8E8;
+    height: 32px;
+}
+
+.formSign__item-input::placeholder {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.formSign__input-help {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+
+    color: #FF3055;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 45px;
+}
+
+.formSign-afterBtn-box {
+    display: flex;
+    padding-top: 15px;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.formSign__btn {
+    border: none;
+    padding: 0;
+    height: 45px;
+    background-color: #3456F3;
+    border-radius: 3px;
+    width: 100%;
+    color: white;
+    cursor: pointer;
+}
+
+.formSign__btn_disabled {
+    background-color: #A0A0A0;
+    cursor: not-allowed;
+}
+
+.formSign__question {
+    margin-block: 0;
+    color: #A0A0A0;
+}
+
+.formSign__link {
+    color: #3456F3;
+}
+
+@media screen and (max-width: 770px) {
+    .formSign {
+        padding-top: 226px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .formSign {
+        padding-top: 56px;
+    }
+
+    .formSign-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .formSign__title {
+        padding-top: 45px;
+    }
+
+    .formSign__form {
+        width: 260px;
+        padding-top: 78px;
+    }
+
+    .formSign-afterBtn-box {
+        font-size: 12px;
+        line-height: 15px;
+        gap: 7px;
+    }
+
+    .formSign__btn {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .formSign__items-inputs {
+        width: 260px;
+    }
+}

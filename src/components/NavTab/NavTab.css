@@ -1,0 +1,53 @@
+.navTab__btns {
+    padding: 151px 0 30px 0;
+    margin-block: 0;
+    padding-inline: 0;
+
+    display: flex;
+    gap: 10px;
+}
+
+.navTab__btn {
+    list-style: none;
+    text-align: center;
+    width: 96px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 10px;
+
+    background-color: #E8E8E8;
+    transition: .4s ease-in-out;
+}
+
+.navTab__btn-link {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+
+}
+
+@media screen and (max-width: 770px) {
+    .navTab__btns {
+        padding-top: 314px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .navTab__btns {
+        padding: 213px 0 16px 0;
+        gap: 6px;
+    }
+
+    .navTab__btn {
+        width: 82px;
+        height: 26px;
+        border-radius: 6px;
+        font-size: 10px;
+        line-height: 16px
+    }
+}

@@ -1,0 +1,95 @@
+.filterСheckbox {
+    display: flex;
+    align-items: center;
+    min-height: 72px;
+    background-color: #F9F9F9;
+    border-radius: 0 9px 9px 0;
+
+}
+
+.filterCheckbox-input {
+    width: 0;
+    height: 0;
+    position: absolute;
+    opacity: 0;
+    appearance: none;
+}
+
+.filterCheckbox-text {
+    padding: 27px 30px 27px 79px;
+    position: relative;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.filterCheckbox-text::before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 27px;
+    top: 27px;
+    width: 36px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #EBEBEB;
+    transition: background-color .4s;
+}
+
+.filterCheckbox-text::after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #F5F5F5;
+    left: 29px;
+    top: 29px;
+    transition: background-color .4s, left .4s;
+}
+
+.filterCheckbox-input:checked+.filterCheckbox-text::before {
+    background-color: #2BE080;
+}
+
+.filterCheckbox-input:checked+.filterCheckbox-text::after {
+    background-color: white;
+    left: 45px;
+}
+
+@media screen and (max-width: 770px) {
+    .filterCheckbox-text {
+        padding: 27px 20px 27px 69px;
+    }
+
+    .filterCheckbox-text::before {
+        left: 20px;
+    }
+
+    .filterCheckbox-input:checked+.filterCheckbox-text::after {
+        left: 38px;
+    }
+
+    .filterCheckbox-text::after {
+        left: 22px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .filterСheckbox {
+        background-color: white;
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .searchForm-line {
+        display: none;
+    }
+
+    .filterCheckbox-text {
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 18px;
+    }
+}
