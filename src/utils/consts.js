@@ -1,4 +1,4 @@
-export const BACKEND_URL = 'http://158.160.44.11';
+export const BACKEND_URL = 'api.diplom-kuskova.nomoredomains.rocks'; //158.160.108.186
 export const BEATFILM_URL = 'https://api.nomoreparties.co';
 export const BEATFILM_MOVIES_URL =
   'https://api.nomoreparties.co/beatfilm-movies';
