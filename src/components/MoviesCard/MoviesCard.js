@@ -2,6 +2,7 @@ import './MoviesCard.css';
 import timeMovie from '../../utils/timeMovie';
 import { useLocation } from 'react-router-dom';
 import { BEATFILM_URL } from '../../utils/consts';
+
 export default function MoviesCard({
   movie,
   savedMovies,
@@ -13,6 +14,7 @@ export default function MoviesCard({
   const isLiked = savedMovies
     ? savedMovies.some((item) => item.movieId === movie.id)
     : false;
+
   const saved = savedMovies
     ? savedMovies.find((item) => item.movieId === movie.id)
     : '';

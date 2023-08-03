@@ -24,17 +24,15 @@
 }
 
 .portfolio__nameLink {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     border-bottom: 1px #E6E6E6 solid;
     padding-bottom: 20px;
     padding-top: 20px;
 }
 
-.portfolio__nameLink:last-child{
+.portfolio__nameLink:last-child {
     border: none;
 }
+
 .portfolio__boxLinks {}
 
 .portfolio__nameLink-text {
@@ -64,10 +62,6 @@
         font-size: 28px;
         line-height: 50px;
     }
-
-    /* .portfolio__link {
-        padding-top: 6px;
-    } */
 }
 
 @media screen and (max-width: 330px) {

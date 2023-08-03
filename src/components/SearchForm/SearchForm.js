@@ -11,9 +11,7 @@ export default function SearchForm({
 }) {
   const [inputError, setInputError] = useState('');
 
- 
-
-  function handleSubmit (evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
 
     if (inputValueText) {
@@ -23,22 +21,16 @@ export default function SearchForm({
       return;
     }
     onFilterMovies(inputValueText, checkedCheckbox);
-    console.log(checkedCheckbox);
-    console.log(inputValueText);
-  };
+  }
 
   //отслеживаем input
-  function handleInputChange (evt) {
+  function handleInputChange(evt) {
     evt.preventDefault();
-    console.log(evt.target.value);
     setInputValueText(evt.target.value);
-  };
+  }
   return (
     <>
-      <form 
-      className='searchForm' 
-      onSubmit={handleSubmit} 
-      noValidate>
+      <form className='searchForm' onSubmit={handleSubmit} noValidate>
         <div className='searchForm__box'>
           <div className='searchForm__input-box'>
             <input

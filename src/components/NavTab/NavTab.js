@@ -1,4 +1,4 @@
-import './NavTab.css'; //добавь якоря
+import './NavTab.css';
 
 export default function NavTab() {
   return (

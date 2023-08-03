@@ -17,8 +17,6 @@
 
 .filterCheckbox-text {
     padding: 27px 30px 27px 79px;
-    /* padding-left: 74px;
-    display: inline-block; */
     position: relative;
     font-size: 13px;
     line-height: 18px;
@@ -77,22 +75,21 @@
     }
 }
 
-    @media screen and (max-width: 600px) {
-        .filterСheckbox {
-            background-color: white;
-            padding-top: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .searchForm-line {
-            display: none;
-        }
-
-        .filterCheckbox-text {
-            font-weight: 400;
-            font-size: 11px;
-            line-height: 18px;
-        }
+@media screen and (max-width: 600px) {
+    .filterСheckbox {
+        background-color: white;
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
     }
 
+    .searchForm-line {
+        display: none;
+    }
+
+    .filterCheckbox-text {
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 18px;
+    }
+}

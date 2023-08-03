@@ -18,12 +18,10 @@
     text-decoration: none;
     padding: 0;
     border: none;
-
 }
 
 .btn:hover {
     background-color: #2BE080;
-
 }
 
 .section {
@@ -50,6 +48,11 @@
     max-width: 500px;
 }
 
+.error {
+    color: red;
+    font-size: 16px;
+}
+
 @media screen and (max-width: 770px) {
     .section {
         padding: 90px 50px;
@@ -62,7 +65,6 @@
         padding-bottom: 93px;
         max-width: 450px;
     }
-
 }
 
 @media screen and (max-width: 330px) {

@@ -6,14 +6,7 @@ export default function MoviesCardList({
   savedMovies,
   onMoviesLike,
   onMoviesDelete,
-  moviesError,
-  // filteredMovies,
-  // renderMovies,
-  // setNextMovies,
-  // screenWidth,
 }) {
-  
-  
   return (
     <section className='moviesCardList'>
       <div className='moviesCardList__box'>
@@ -31,28 +24,6 @@ export default function MoviesCardList({
               );
             })}
           </ul>
-          {/* <div className='moviesCardList__btn-box'>
-            {(filteredMovies.length,
-            console.log(
-              'filteredMovies длина для кнопки',
-              filteredMovies.length
-            )) >
-            (renderMovies.length,
-            console.log(
-              'filteredMovies длина для кнопки',
-              renderMovies.length
-            )) ? (
-              <button
-                className='moviesCardList__btn btn'
-                onClick={handleClickButtonMore}
-                type='button'
-              >
-                Ещё
-              </button>
-            ) : (
-              ''
-            )}
-          </div> */}
         </div>
       </div>
     </section>

@@ -6,8 +6,6 @@
     padding-top: 70px;
 }
 
-.moviesCardList__items {}
-
 .moviesCardList__item {
     display: grid;
     grid-template-columns: repeat(auto-fit, 364px);

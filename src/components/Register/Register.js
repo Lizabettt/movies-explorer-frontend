@@ -1,19 +1,18 @@
 import './Register.css';
 import FormSign from '../FormSign/FormSign';
-import  useForm  from '../../hooks/useFormAndValid';
+import useForm from '../../hooks/useFormAndValid';
 import { useEffect } from 'react';
+import { validateName } from '../../utils/validation';
 
-export default function Register({ onRegister}) {
-
-  const { values, setValues, handleChange, errors, isValid} = useForm({});
+export default function Register({ onRegister }) {
+  const { values, setValues, handleChange, errors, isValid } = useForm({});
 
   useEffect(() => {
     setValues({});
   }, [setValues]);
-  
 
   function handleSubmit(evt) {
-    evt.preventDefault();    
+    evt.preventDefault();
     onRegister(values);
     console.log(values);
   }
@@ -25,15 +24,13 @@ export default function Register({ onRegister}) {
       btnText='Зарегистрироваться'
       nameColor='login'
       question='Уже зарегистрированы?'
-      link="/signin"
+      link='/signin'
       linkAfterBtn='Войти'
       handleSubmit={handleSubmit}
-       onChange={handleChange}
-   
+      onChange={handleChange}
       isValid={isValid}
       values={values}
       errors={errors}
-        
     >
       <div className='formSign__items-inputs'>
         <label className='formSign__input-label' htmlFor='nameInput'>
@@ -50,11 +47,12 @@ export default function Register({ onRegister}) {
           required
           autoComplete='off'
           value={values.name || ''}
-          onChange={handleChange}          
+          onChange={handleChange}
         />
-        <span className='formSign__input-help inputName-err'>{errors.password}</span>
+        <span className='formSign__input-help inputName-err'>
+          {validateName(values.name).message}
+        </span>
       </div>
-      
     </FormSign>
   );
 }

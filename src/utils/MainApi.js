@@ -1,4 +1,3 @@
-
 import { BEATFILM_URL } from '../utils/consts';
 export default class MainApi {
   constructor({ url, headers }) {
@@ -22,13 +21,15 @@ export default class MainApi {
       headers: this._headers,
     }).then((res) => this._result(res));
   }
- //получаем все сохраненны фильмы с сервера
- getSavedMovies() {
-  return fetch(`${this._url}/movies`, {
-    method: 'GET',
-    headers: this._headers,
-  }).then((res) => this._result(res));
-}
+
+  //получаем все сохраненны фильмы с сервера
+  getSavedMovies() {
+    return fetch(`${this._url}/movies`, {
+      method: 'GET',
+      headers: this._headers,
+    }).then((res) => this._result(res));
+  }
+
   //отправляем новый фильм на сервер
   // при нажатии на лайк
   savedMoviesLike(data) {
@@ -44,10 +45,10 @@ export default class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: BEATFILM_URL + data.image.url,        
+        image: BEATFILM_URL + data.image.url,
         thumbnail: BEATFILM_URL + data.image.formats.thumbnail.url,
-        movieId: data.id,       
-        owner: data.user
+        movieId: data.id,
+        owner: data.user,
       }),
     }).then((res) => this._result(res));
   }
@@ -59,6 +60,7 @@ export default class MainApi {
       headers: this._headers,
     }).then((res) => this._result(res));
   }
+
   //меняем info пользователя
   changeUserData(data) {
     return fetch(`${this._url}/users/me`, {

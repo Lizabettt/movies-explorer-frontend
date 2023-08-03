@@ -1,8 +1,7 @@
 import './FormSign.css';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
-
-
+import { validateEmail } from '../../utils/validation';
 
 export default function FormSign({
   namePage,
@@ -13,15 +12,16 @@ export default function FormSign({
   link,
   linkAfterBtn,
   onChange,
-isValid,
-handleSubmit,
-
-  values,errors
+  isValid,
+  handleSubmit,
+  values,
+  errors,
 }) {
 
+  const btnSubmitClassName = isValid
+    ? 'formSign__btn'
+    : 'formSign__btn formSign__btn_disabled';
 
-  
-  const btnSubmitClassName = isValid ? "formSign__btn" : "formSign__btn formSign__btn_disabled"
   return (
     <div className='formSign'>
       <div className='formSign-box'>
@@ -53,11 +53,12 @@ handleSubmit,
               autoComplete='off'
               values={values.email || ''}
               onChange={onChange}
-
             />
-            <span className='formSign__input-help inputEmail-err'>{errors.email}</span>
+            <span className='formSign__input-help inputEmail-err'>
+              {validateEmail(values.email).message}
+            </span>
           </div>
-          
+
           <div className='formSign__items-inputs'>
             <label className='formSign__input-label' htmlFor='passwordInput'>
               Пароль
@@ -74,16 +75,16 @@ handleSubmit,
               autoComplete='off'
               values={values.password || ''}
               onChange={onChange}
-   
             />
-            <span className='formSign__input-help inputPassword-err'>{errors.password}</span>
-          </div>          
+            <span className='formSign__input-help inputPassword-err'>
+              {errors.password}
+            </span>
+          </div>
           <div className={`formSign-btn-box formSign-btn-box_type-${namePage}`}>
-            <button 
-            className={btnSubmitClassName} 
-            type='submit'
-            disabled={!isValid}
-
+            <button
+              className={btnSubmitClassName}
+              type='submit'
+              disabled={validateEmail(values.email).invalid}
             >
               {btnText}
             </button>
@@ -91,9 +92,9 @@ handleSubmit,
         </form>
         <div className='formSign-afterBtn-box'>
           <p className='formSign__question'>{question}</p>
-          <Link className='formSign__link'
-          to={link}
-          >{linkAfterBtn}</Link>
+          <Link className='formSign__link' to={link}>
+            {linkAfterBtn}
+          </Link>
         </div>
       </div>
     </div>

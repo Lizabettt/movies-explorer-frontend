@@ -26,7 +26,7 @@ export default function useForm() {
     handleChange,
     errors,
     isValid,
-   setValid,
+    setValid,
     resetForm,
   };
 }

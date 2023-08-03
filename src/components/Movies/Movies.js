@@ -1,4 +1,3 @@
-import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState, useCallback, useMemo } from 'react';
@@ -10,7 +9,6 @@ export default function Movies({
   moviesError,
   onMoviesLike,
   onMoviesDelete,
-
 }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
@@ -26,17 +24,16 @@ export default function Movies({
   const inputValueLocal = localStorage.getItem('inputValueLocal');
   const checkboxLocal = localStorage.getItem('checkboxLocal');
 
-  
   //изменение чекбокса
- function handleCheckboxChange () {
+  function handleCheckboxChange() {
     if (inputValueText !== '') {
       setCheckedCheckbox(!checkedCheckbox);
       handleFilterMovies(inputValueText, !checkedCheckbox);
     }
-  };
+  }
+
   //фильтрация
   function handleFilterMovies(inputValue, isCheckedState) {
-    console.log(filteredMovies);
     localStorage.setItem('inputValueLocal', JSON.stringify(inputValue));
     localStorage.setItem('checkboxLocal', JSON.stringify(isCheckedState));
 
@@ -56,9 +53,7 @@ export default function Movies({
         });
         setFilteredMovies(newFilteredArray);
         localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
-        console.log('найденные фильмы', newFilteredArray);
-        console.log('нажат чекбокс?', isCheckedState);
-      } else if (!isCheckedState) { 
+      } else if (!isCheckedState) {
         //если чекбокс выключен
         newFilteredArray = movies.filter((movie) => {
           return (
@@ -69,8 +64,6 @@ export default function Movies({
 
         setFilteredMovies(newFilteredArray);
         localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
-        console.log('найденные фильмы', newFilteredArray);
-        console.log('нажат чекбокс?', isCheckedState);
       }
       if (moviesError) {
         setErrorApi(true);
@@ -86,13 +79,12 @@ export default function Movies({
 
   //рендер
   const renderMovies = useMemo(() => {
-    console.log('Кол-во найденых фильмов', filteredMovies.length);
-
-    const pageContentMovies= screenWidth < 768 ? 5 : screenWidth < 1280 ? 8 : 12;
-    console.log('pageContentMovies ->', pageContentMovies);
+    const pageContentMovies =
+      screenWidth < 768 ? 5 : screenWidth < 1280 ? 8 : 12;
 
     return filteredMovies.slice(0, pageContentMovies + nextMovies);
   }, [nextMovies, screenWidth, filteredMovies]);
+
   //кнопка
   const handleClickButtonMore = () => {
     console.log('screenWidth', screenWidth);
@@ -102,13 +94,13 @@ export default function Movies({
       setNextMovies((prev) => prev + 3);
     }
   };
+
   //ресайз ширины
   const handleResize = useCallback(() => {
     setScreenWidth(window.innerWidth);
   }, []);
 
   useEffect(() => {
-    console.log('размер экрана', window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -117,7 +109,6 @@ export default function Movies({
 
   useEffect(() => {
     if (faindMovies) {
-      console.log(" сет найденых фильмов", JSON.parse(faindMovies));
       setFilteredMovies(JSON.parse(faindMovies));
     }
     if (checkboxLocal) {
@@ -128,16 +119,14 @@ export default function Movies({
     }
   }, [faindMovies, checkboxLocal, inputValueLocal]);
 
-
   return (
     <section className='movies'>
       <SearchForm
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
-       checkedCheckbox={checkedCheckbox} 
+        checkedCheckbox={checkedCheckbox}
         setInputValueText={setInputValueText}
         inputValueText={inputValueText}
-                
       />
       {errorApi ? (
         <p className='movies__errorApi error'>
@@ -149,20 +138,15 @@ export default function Movies({
         <p className='movies__error error'> Ничего не найдено</p>
       ) : (
         <MoviesCardList
-          movies={movies}
+          movies={renderMovies}
           savedMovies={savedMovies}
           onMoviesLike={onMoviesLike}
           onMoviesDelete={onMoviesDelete}
           moviesError={moviesError}
-           />
+        />
       )}
       <div className='moviesCardList__btn-box'>
-        {(filteredMovies.length
-        //,  console.log('filteredMovies длина для кнопки', filteredMovies.length)
-        ) >
-        (renderMovies.length
-         // , console.log('filteredMovies длина для кнопки', renderMovies.length)
-          ) ? (
+        {filteredMovies.length > renderMovies.length ? (
           <button
             className='moviesCardList__btn btn'
             onClick={handleClickButtonMore}

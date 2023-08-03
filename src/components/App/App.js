@@ -22,6 +22,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import { BEATFILM_MOVIES_URL } from '../../utils/consts';
 import { BACKEND_URL } from '../../utils/consts';
+import { useLocation } from 'react-router-dom';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
@@ -32,15 +33,16 @@ export default function App() {
 
   const [isClickBurger, setClickBurger] = useState(false);
   const navigate = useNavigate();
-  //const [luckRegister, setLuckRegister] = useState(false);
 
   const [isRequestCompleted, setRequestCompleted] = useState(false);
 
   const [serverError, setServerError] = useState({});
   const [isMoviesError, setIsMoviesError] = useState(false);
 
+  const location = useLocation();
+
   const mainApi = new MainApi({
-    url: BACKEND_URL, //сюда бэк
+    url: BACKEND_URL,
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -53,15 +55,14 @@ export default function App() {
     },
   });
   const auth = new Auth({
-    //и сюда бэк
     url: BACKEND_URL,
     headers: {
       'Content-Type': 'application/json',
     },
   });
+
   //грузим фильмы и инфо пользователя с сервера
   useEffect(() => {
-    
     if (loggedIn) {
       Promise.all([
         mainApi.getUserData(),
@@ -69,15 +70,10 @@ export default function App() {
         movieApi.getAllMovies(),
       ])
         .then(([user, savedMovies, movies]) => {
-          // задаем стейты
           setCurrentUser(user);
           setSavedMovies(savedMovies);
           setMovies(movies);
-          console.log('я стейт фильмов', movies)
-          console.log('я стейт сохраненных',savedMovies)
-          console.log('я стейт юзера',user)
-         // localStorage.setItem("movies", JSON.stringify(movies));
-          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
 
           setIsMoviesError(false);
         })
@@ -86,19 +82,8 @@ export default function App() {
           setIsMoviesError(true);
         });
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
-  
- const savedMoviesLocal=localStorage.getItem('savedMovies');
-
-function getSavedMoviesLocal(movie){  
-   if (movie){
-    setSavedMovies(JSON.parse(movie))
-  }
-}
-
-  useEffect(() => {   
-    getSavedMoviesLocal(savedMoviesLocal)
-  }, [savedMoviesLocal]);
 
   //авторизация
   function handleLogin(dataLog) {
@@ -112,7 +97,6 @@ function getSavedMoviesLocal(movie){
         }
       })
       .catch((err) => {
-        // setLuckRegister(false);
         console.log(err);
         setServerError(err);
       });
@@ -126,11 +110,9 @@ function getSavedMoviesLocal(movie){
         if (data) {
           console.log('reg');
           navigate('/signin');
-          // setLuckRegister(true);
         }
       })
       .catch((err) => {
-        // setLuckRegister(false);
         console.log(err);
         setServerError(err);
       });
@@ -145,8 +127,7 @@ function getSavedMoviesLocal(movie){
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            // setEmailUserHeader(res.email);
-            navigate('/');
+            navigate(location.pathname);
             console.log('token');
           }
         })
@@ -158,15 +139,21 @@ function getSavedMoviesLocal(movie){
   // eslint-disable-next-line
   useEffect(() => {
     handleToken();
+    // eslint-disable-next-line
   }, [loggedIn]);
 
   //выход
   function handleExit() {
     setLoggedIn(false);
-    localStorage.removeItem('jwt');
+    localStorage.clear();
 
     navigate('/signin');
   }
+
+  useEffect(() => {
+    loggedIn &&
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  }, [savedMovies, loggedIn]);
 
   //сохрани фильм
   function handleMoviesSave(movie, isLiked, id) {
@@ -175,7 +162,6 @@ function getSavedMoviesLocal(movie){
         .savedMoviesLike(movie)
         .then((newMovie) => {
           setSavedMovies([...savedMovies, newMovie]);
-          console.log(newMovie);
         })
         .catch((err) => {
           console.log(err);
@@ -187,18 +173,33 @@ function getSavedMoviesLocal(movie){
 
   // удалить фильм
   function handleMoviesDelete(id) {
-    console.log(id);
+    const searchedSavedMovies = JSON.parse(
+      localStorage.getItem('searchedSavedMovies')
+    );
+
     mainApi
       .deleteMovie(id)
       .then(() => {
         const newSavedMovies = savedMovies.filter((movie) => id !== movie._id);
         setSavedMovies(newSavedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+
+        if (searchedSavedMovies) {
+          const updatedSearchedSavedMovies = searchedSavedMovies.filter(
+            (movie) => movie._id !== id
+          );
+
+          localStorage.setItem(
+            'searchedSavedMovies',
+            JSON.stringify(updatedSearchedSavedMovies)
+          );
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
   //меняем инфо пользователя
   function handleUpdateUser(data) {
     mainApi
@@ -223,9 +224,6 @@ function getSavedMoviesLocal(movie){
     setClickBurger(false);
   }
 
-
-
-  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isOpen={handleOpenBurger} loggedIn={loggedIn} />
@@ -252,7 +250,6 @@ function getSavedMoviesLocal(movie){
               />
             }
           />
-
           <Route path='*' element={<NotFound />} />
           <Route
             path='/movies'
@@ -263,9 +260,8 @@ function getSavedMoviesLocal(movie){
                 movies={movies}
                 savedMovies={savedMovies}
                 moviesError={isMoviesError}
-                onMoviesLike={handleMoviesSave} //сохранить
-                onMoviesDelete={handleMoviesDelete} //удалить
-
+                onMoviesLike={handleMoviesSave}
+                onMoviesDelete={handleMoviesDelete}
               />
             }
           />
@@ -278,7 +274,7 @@ function getSavedMoviesLocal(movie){
                 movies={savedMovies}
                 savedMovies={savedMovies}
                 currentUser={currentUser}
-                onMoviesDelete={handleMoviesDelete} //удалить
+                onMoviesDelete={handleMoviesDelete}
               />
             }
           />

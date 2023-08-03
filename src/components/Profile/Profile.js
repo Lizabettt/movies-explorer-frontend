@@ -1,10 +1,10 @@
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useContext, useState } from 'react';
+import { validateEmail, validateName } from '../../utils/validation';
 import useForm from '../../hooks/useFormAndValid';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-
 
 export default function Profile({
   onUpdateUser,
@@ -12,7 +12,8 @@ export default function Profile({
   isRequestCompleted,
   serverError,
 }) {
-  const { values, setValues, handleChange, isValid, setValid, errors } = useForm({});
+  const { values, setValues, handleChange, isValid } = useForm({});
+
   const currentUser = useContext(CurrentUserContext);
   const [isChangedInfo, setChangedInfo] = useState(false);
   const [isRequestText, setRequestText] = useState(false);
@@ -20,43 +21,34 @@ export default function Profile({
   useEffect(() => {
     if (currentUser) {
       setValues(currentUser);
-      //setValid(true);
     }
-  }, [setValues, currentUser
-    // , setValid
-  ]);
-//сабмит формы
+  }, [setValues, currentUser]);
+
+  //сабмит формы
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateUser(values);
-   // setChangedInfo(false);
     setRequestText(true);
     console.log(values);
   }
+
   //кнопка сабмита формы
   const handleBtnClickSubmit = (evt) => {
     evt.preventDefault();
     setChangedInfo(true);
-    // setRequestText(false)
   };
 
-//если есть изминения 
+  //если есть изминения
   useEffect(() => {
-    currentUser.name !== values.name || 
-    currentUser.email !== values.email
+    currentUser.name !== values.name || currentUser.email !== values.email
       ? setChangedInfo(true)
       : setChangedInfo(false);
   }, [currentUser.name, currentUser.email, values.email, values.name]);
 
- 
-  //сделай кнопку сохранить или нет
   return (
     <div className='profile'>
       <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
-      <form className='profile__form' 
-      onSubmit={handleSubmit}
-      noValidate
-      >
+      <form className='profile__form' onSubmit={handleSubmit} noValidate>
         <div className='profile__items-inputs'>
           <label className='profile__input-label' htmlFor='nameInput'>
             Имя
@@ -76,8 +68,7 @@ export default function Profile({
           />
         </div>
         <span className={`profile__input-help`}>
-
-          {errors.name}
+          {validateName(values.name).message}
         </span>
         <div className='profile__items-inputs'>
           <label className='profile__input-label' htmlFor='emailInput'>
@@ -98,8 +89,7 @@ export default function Profile({
           />
         </div>
         <span className={`profile__input-help`}>
-
-          {errors.email}
+          {validateEmail(values.email).message}
         </span>
         {isRequestCompleted ? (
           <span
@@ -119,10 +109,15 @@ export default function Profile({
           </span>
         )}
         <div className='profile__buttons'>
-          {isValid && isChangedInfo ? (
+          {isChangedInfo ? (
             <button
               className='profile__btn profile__btn-profileSaved'
               type='submit'
+              disabled={
+                !isValid ||
+                validateEmail(values.email).invalid ||
+                validateName(values.name).invalid
+              }
             >
               Сохранить
             </button>
