@@ -1,77 +1,74 @@
 .moviesCardList {
-    padding: 10px 70px;
+  padding: 10px 70px;
 }
 
 .moviesCardList__box {
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 .moviesCardList__item {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 364px);
-    justify-content: center;
-    gap: 32px 24px;
-    margin-block: 0;
-    padding-inline: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 364px);
+  justify-content: center;
+  gap: 32px 24px;
+  margin-block: 0;
+  padding-inline: 0;
 }
 
 .moviesCardList__btn-box {
-    padding-top: 68px;
-    padding-bottom: 55px;
-    display: flex;
-    justify-content: center;
+  padding-top: 68px;
+  padding-bottom: 55px;
+  display: flex;
+  justify-content: center;
 }
 
 .moviesCardList__btn {
-
-    transition: .4s ease-in-out;
-    min-width: 320px;
-    height: 36px;
-    border: 1px #E8E8E8 solid;
-    border-radius: 6px;
-    background-color: white;
-    line-height: 15px;
+  transition: 0.4s ease-in-out;
+  min-width: 320px;
+  height: 36px;
+  border: 1px #e8e8e8 solid;
+  border-radius: 6px;
+  background-color: white;
+  line-height: 15px;
 }
 
 @media screen and (max-width: 770px) {
-    .moviesCardList__item {
-        grid-template-columns: repeat(auto-fit, 339px);
-        gap: 37px 30px;
-        overflow: hidden;
-    }
+  .moviesCardList__item {
+    grid-template-columns: repeat(auto-fit, 339px);
+    gap: 37px 30px;
+    overflow: hidden;
+  }
 
-    .moviesCardList {
-        padding: 10px 30px;
-    }
+  .moviesCardList {
+    padding: 10px 30px;
+  }
 
-    .moviesCardList__btn-box {
-        padding-bottom: 68px;
-    }
+  .moviesCardList__btn-box {
+    padding-bottom: 68px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    .moviesCardList__btn {
-        min-width: 240px;
-    }
-
+  .moviesCardList__btn {
+    min-width: 240px;
+  }
 }
 
 @media screen and (max-width: 330px) {
-    .moviesCardList__box {
-        padding-top: 35px;
-    }
+  .moviesCardList__box {
+    padding-top: 35px;
+  }
 
-    .moviesCardList__item {
-        grid-template-columns: repeat(auto-fit, 300px);
-        gap: 13px 0;
-        height: 1248px;
-    }
+  .moviesCardList__item {
+    grid-template-columns: repeat(auto-fit, 300px);
+    gap: 13px 0;
+  }
 
-    .moviesCardList {
-        padding: 14px 10px;
-    }
+  .moviesCardList {
+    padding: 14px 10px;
+  }
 
-    .moviesCardList__btn-box {
-        padding-bottom: 65px;
-    }
+  .moviesCardList__btn-box {
+    padding-bottom: 65px;
+  }
 }

@@ -39,8 +39,12 @@ export default function App() {
   const [serverError, setServerError] = useState([]);
   const [isMoviesError, setIsMoviesError] = useState(false);
   const [isBlockedInput, setIsBlockedInput] = useState(false);
-  
+
   const location = useLocation();
+
+  useEffect(() => {
+    setServerError([]);
+  }, [location.pathname]);
 
   const mainApi = new MainApi({
     url: BACKEND_URL,
@@ -89,11 +93,10 @@ export default function App() {
   //авторизация
   function handleLogin(dataLog) {
     //для проверки блокировки инпута
-   // setTimeout(() => {
+    // setTimeout(() => {
     auth
       .login(dataLog.email, dataLog.password)
       .then((res) => {
-        
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
@@ -102,7 +105,7 @@ export default function App() {
           setServerError([]);
         }
       })
-    
+
       .catch((err) => {
         console.log(err);
         setServerError(err);
@@ -112,15 +115,15 @@ export default function App() {
 
   //регистрация
   function handleRegister(dataReg) {
-  //для проверки блокировки инпута
-   // setTimeout(() => {
+    //для проверки блокировки инпута
+    // setTimeout(() => {
     auth
       .register(dataReg.name, dataReg.email, dataReg.password)
       .then((data) => {
         if (data) {
           console.log(data);
           handleLogin(dataReg);
-          setIsBlockedInput(true)
+          setIsBlockedInput(true);
           setServerError([]);
         }
       })
@@ -128,7 +131,7 @@ export default function App() {
         console.log(err);
         setServerError(err);
       });
-      //}, 5000)
+    //}, 5000)
   }
 
   //сверим токен и авторизацию
@@ -216,21 +219,21 @@ export default function App() {
   //меняем инфо пользователя
   function handleUpdateUser(data) {
     //для проверки блокировки инпута
-   // setTimeout(() => {
+    // setTimeout(() => {
     mainApi
       .changeUserData(data)
       .then((data) => {
         console.log(data);
         setCurrentUser(data);
         setRequestCompleted(true);
-        setIsBlockedInput(true)
+        setIsBlockedInput(true);
       })
       .catch((err) => {
         console.log(err);
         setServerError(err);
         setRequestCompleted(false);
       });
-      //}, 5000)
+    //}, 5000)
   }
   // открыть бургер
   function handleOpenBurger() {
@@ -271,8 +274,7 @@ export default function App() {
               />
             }
           />
-          <Route path="*"  element={<NotFound/>} 
-          />
+          <Route path="*" element={<NotFound />} />
           <Route
             path="/movies"
             element={

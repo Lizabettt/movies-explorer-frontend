@@ -2,6 +2,7 @@ import './FormSign.css';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 import { validateEmail } from '../../utils/validation';
+import { useEffect } from 'react';
 
 export default function FormSign({
   namePage,
@@ -35,7 +36,7 @@ export default function FormSign({
           method="post"
           noValidate
           onSubmit={handleSubmit}
-               >
+        >
           {children}
 
           <div className="formSign__items-inputs">

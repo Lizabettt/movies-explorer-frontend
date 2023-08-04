@@ -4,13 +4,12 @@ import useForm from '../../hooks/useFormAndValid';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({ 
-  onLogin, 
-  loggedIn, 
+export default function Login({
+  onLogin,
+  loggedIn,
   apiErrorMessage,
-  isBlockedInput, 
+  isBlockedInput
 }) {
-
   const { values, setValues, handleChange, errors, isValid } = useForm({});
   const navigate = useNavigate();
 
@@ -22,13 +21,11 @@ export default function Login({
 
   useEffect(() => {
     setValues({});
-    
   }, [setValues]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onLogin(values);
-    console.log(values);
   }
   return (
     <FormSign

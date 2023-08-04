@@ -8,7 +8,7 @@ export default function Movies({
   savedMovies,
   moviesError,
   onMoviesLike,
-  onMoviesDelete,
+  onMoviesDelete
 }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
@@ -38,44 +38,56 @@ export default function Movies({
     localStorage.setItem('checkboxLocal', JSON.stringify(isCheckedState));
 
     setError(false);
-    setIsLoading(true);
 
-    setTimeout(() => {
-      let newFilteredArray = [];
-      // если чекбокс включен
-      if (isCheckedState) {
-        newFilteredArray = movies.filter((movie) => {
-          return (
-            (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
-              movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())) &&
-            movie.duration <= 40
-          );
-        });
-        setFilteredMovies(newFilteredArray);
-        localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
-      } else if (!isCheckedState) {
-        //если чекбокс выключен
-        newFilteredArray = movies.filter((movie) => {
-          return (
-            movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
-            movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
-          );
-        });
+    if (!filteredMovies.length) {
+      setIsLoading(true);
+    }
 
-        setFilteredMovies(newFilteredArray);
-        localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
-      }
-      if (moviesError) {
-        setErrorApi(true);
-      } else if (!moviesError) {
-        setErrorApi(false);
-      }
-      if (newFilteredArray.length === 0) {
-        setError(true);
-      }
-      setIsLoading(false);
-    }, 2000);
+    setTimeout(
+      () => {
+        let newFilteredArray = [];
+        // если чекбокс включен
+        if (isCheckedState) {
+          newFilteredArray = movies.filter((movie) => {
+            return (
+              (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+                movie.nameEN
+                  .toLowerCase()
+                  .includes(inputValue.toLowerCase())) &&
+              movie.duration <= 40
+            );
+          });
+          setFilteredMovies(newFilteredArray);
+          localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
+        } else if (!isCheckedState) {
+          //если чекбокс выключен
+          newFilteredArray = movies.filter((movie) => {
+            return (
+              movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+              movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+            );
+          });
+
+          setFilteredMovies(newFilteredArray);
+          localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
+        }
+        if (moviesError) {
+          setErrorApi(true);
+        } else if (!moviesError) {
+          setErrorApi(false);
+        }
+        if (newFilteredArray.length === 0) {
+          setError(true);
+        }
+        setIsLoading(false);
+      },
+      filteredMovies.length ? 0 : 300
+    );
   }
+
+  useEffect(() => {
+    setNextMovies(0);
+  }, [filteredMovies]);
 
   //рендер
   const renderMovies = useMemo(() => {
@@ -87,7 +99,6 @@ export default function Movies({
 
   //кнопка
   const handleClickButtonMore = () => {
-    console.log('screenWidth', screenWidth);
     if (screenWidth < 1280) {
       setNextMovies((prev) => prev + 2);
     } else if (screenWidth >= 1280) {
@@ -120,7 +131,7 @@ export default function Movies({
   }, [faindMovies, checkboxLocal, inputValueLocal]);
 
   return (
-    <section className='movies'>
+    <section className="movies">
       <SearchForm
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
@@ -129,13 +140,13 @@ export default function Movies({
         inputValueText={inputValueText}
       />
       {errorApi ? (
-        <p className='movies__errorApi error'>
+        <p className="movies__errorApi error">
           Ошибка сервера. Попробуйте еще раз позже.
         </p>
       ) : isLoading ? (
         <Preloader />
       ) : error ? (
-        <p className='movies__error error'> Ничего не найдено</p>
+        <p className="movies__error error"> Ничего не найдено</p>
       ) : (
         <MoviesCardList
           movies={renderMovies}
@@ -145,12 +156,12 @@ export default function Movies({
           moviesError={moviesError}
         />
       )}
-      <div className='moviesCardList__btn-box'>
+      <div className="moviesCardList__btn-box">
         {filteredMovies.length > renderMovies.length ? (
           <button
-            className='moviesCardList__btn btn'
+            className="moviesCardList__btn btn"
             onClick={handleClickButtonMore}
-            type='button'
+            type="button"
           >
             Ещё
           </button>

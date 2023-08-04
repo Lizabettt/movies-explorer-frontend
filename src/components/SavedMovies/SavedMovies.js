@@ -2,16 +2,12 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
 
-export default function SavedMovies({ movies, savedMovies, onMoviesDelete }) {
+export default function SavedMovies({ savedMovies, onMoviesDelete }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setСheckedCheckbox] = useState(false);
   const [inputValueText, setInputValueText] = useState('');
 
   const [error, setError] = useState(false);
-
-  const searchedMovies = localStorage.getItem('searchedSavedMovies');
-  const inputValueLocal = localStorage.getItem('inputSavedValue');
-  const checkboxLocal = localStorage.getItem('checkboxStateFavorite');
 
   //изменение чекбокса
   const handleCheckboxChange = () => {
@@ -23,13 +19,6 @@ export default function SavedMovies({ movies, savedMovies, onMoviesDelete }) {
 
   //фильтрация
   const handleFilterMovies = (inputValue, isCheckedState) => {
-    console.log(inputValue, isCheckedState);
-    localStorage.setItem('inputSavedValue', JSON.stringify(inputValue));
-    localStorage.setItem(
-      'checkboxStateFavorite',
-      JSON.stringify(isCheckedState)
-    );
-
     let newFilteredArray = [];
     // если чекбокс включен
     if (isCheckedState) {
@@ -41,10 +30,6 @@ export default function SavedMovies({ movies, savedMovies, onMoviesDelete }) {
         );
       });
       setFilteredMovies(newFilteredArray);
-      localStorage.setItem(
-        'searchedSavedMovies',
-        JSON.stringify(newFilteredArray)
-      );
     } else if (!isCheckedState) {
       //если чекбокс выключен
       newFilteredArray = savedMovies.filter((movie) => {
@@ -54,10 +39,6 @@ export default function SavedMovies({ movies, savedMovies, onMoviesDelete }) {
         );
       });
       setFilteredMovies(newFilteredArray);
-      localStorage.setItem(
-        'searchedSavedMovies',
-        JSON.stringify(newFilteredArray)
-      );
     }
 
     if (newFilteredArray.length === 0) {
@@ -66,32 +47,11 @@ export default function SavedMovies({ movies, savedMovies, onMoviesDelete }) {
   };
 
   useEffect(() => {
-    if (searchedMovies) {
-      setFilteredMovies(JSON.parse(searchedMovies));
-    }
-    if (checkboxLocal) {
-      setСheckedCheckbox(JSON.parse(checkboxLocal));
-    }
-    if (inputValueLocal) {
-      setInputValueText(JSON.parse(inputValueLocal));
-      handleFilterMovies(
-        JSON.parse(inputValueLocal),
-        JSON.parse(checkboxLocal)
-      );
-    }
-     // eslint-disable-next-line
-  }, [searchedMovies, checkboxLocal, inputValueLocal]);
-
-  useEffect(() => {
-    if (searchedMovies) {
-      setFilteredMovies(JSON.parse(searchedMovies));
-    } else {
-      setFilteredMovies(savedMovies);
-    }
-  }, [searchedMovies, savedMovies]);
+    setFilteredMovies(savedMovies);
+  }, [savedMovies]);
 
   return (
-    <section className='savedMovies'>
+    <section className="savedMovies">
       <SearchForm
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
@@ -105,7 +65,7 @@ export default function SavedMovies({ movies, savedMovies, onMoviesDelete }) {
           onMoviesDelete={onMoviesDelete}
         />
       ) : (
-        error && <p className='savedMovies__error error'> Ничего не найдено</p>
+        error && <p className="savedMovies__error error"> Ничего не найдено</p>
       )}
     </section>
   );
