@@ -36,7 +36,7 @@ export default function App() {
 
   const [isRequestCompleted, setRequestCompleted] = useState(false);
 
-  const [serverError, setServerError] = useState({});
+  const [serverError, setServerError] = useState([]);
   const [isMoviesError, setIsMoviesError] = useState(false);
 
   const location = useLocation();
@@ -45,20 +45,20 @@ export default function App() {
     url: BACKEND_URL,
     headers: {
       'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    },
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
   const movieApi = new MovieApi({
     url: BEATFILM_MOVIES_URL,
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   });
   const auth = new Auth({
     url: BACKEND_URL,
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   });
 
   //грузим фильмы и инфо пользователя с сервера
@@ -67,7 +67,7 @@ export default function App() {
       Promise.all([
         mainApi.getUserData(),
         mainApi.getSavedMovies(),
-        movieApi.getAllMovies(),
+        movieApi.getAllMovies()
       ])
         .then(([user, savedMovies, movies]) => {
           setCurrentUser(user);
@@ -94,6 +94,7 @@ export default function App() {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
           navigate('/movies');
+          setServerError([]);
         }
       })
       .catch((err) => {
@@ -108,8 +109,9 @@ export default function App() {
       .register(dataReg.name, dataReg.email, dataReg.password)
       .then((data) => {
         if (data) {
-          console.log('reg');
-          navigate('/signin');
+          console.log(data);
+          handleLogin(dataReg);
+          setServerError([]);
         }
       })
       .catch((err) => {
@@ -140,7 +142,7 @@ export default function App() {
   useEffect(() => {
     handleToken();
     // eslint-disable-next-line
-  }, [loggedIn]);
+  }, []);
 
   //выход
   function handleExit() {
@@ -227,32 +229,33 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isOpen={handleOpenBurger} loggedIn={loggedIn} />
-      <main className='main'>
+
+      <main className="main">
         <Routes>
-          <Route path='/' element={<Main />} />
+          <Route path="/" element={<Main />} />
           <Route
-            path='/signin'
+            path="/signin"
             element={
               <Login
                 loggedIn={loggedIn}
                 onLogin={handleLogin}
-                serverError={serverError}
+                apiErrorMessage={serverError}
               />
             }
           />
           <Route
-            path='/signup'
+            path="/signup"
             element={
               <Register
                 loggedIn={loggedIn}
                 onRegister={handleRegister}
-                serverError={serverError}
+                apiErrorMessage={serverError}
               />
             }
           />
-          <Route path='*' element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
           <Route
-            path='/movies'
+            path="/movies"
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
@@ -266,7 +269,7 @@ export default function App() {
             }
           />
           <Route
-            path='/saved-movies'
+            path="/saved-movies"
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
@@ -279,7 +282,7 @@ export default function App() {
             }
           />
           <Route
-            path='/profile'
+            path="/profile"
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}

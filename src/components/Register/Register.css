@@ -1,8 +1,9 @@
-.formSign-btn-box_type-register{
-    padding-top: 128px;
+.formSign-btn-box_type-register {
+  padding-top: 128px;
 }
+
 @media screen and (max-width: 600px) {
-    .formSign__btn-box_type-register{
-        padding-top: 218px;
-    }
+  .formSign__btn-box_type-register {
+    padding-top: 218px;
+  }
 }

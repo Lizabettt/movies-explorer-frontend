@@ -2,9 +2,17 @@ import './Login.css';
 import FormSign from '../FormSign/FormSign';
 import useForm from '../../hooks/useFormAndValid';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, loggedIn, apiErrorMessage }) {
   const { values, setValues, handleChange, errors, isValid } = useForm({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/movies');
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     setValues({});
@@ -30,6 +38,7 @@ export default function Login({ onLogin }) {
       isValid={isValid}
       values={values}
       errors={errors}
+      apiErrorMessage={apiErrorMessage}
     ></FormSign>
   );
 }

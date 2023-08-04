@@ -4,3 +4,5 @@
 [Ссылка Frontend](https://diplom-kuskova.nomoredomains.rocks)
 
 [Ссылка Backend](https://api.diplom-kuskova.nomoredomains.rocks)
+
+[Ссылка Pull request](https://github.com/Lizabettt/movies-explorer-frontend/pull/4)

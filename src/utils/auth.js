@@ -8,16 +8,23 @@ class Auth {
   _result(res) {
     if (res.ok) {
       return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
     }
+    return res.text().then((text) => {
+      return Promise.reject({
+        status: res.status,
+        errorText:
+          JSON.parse(text).message === 'Validation failed'
+            ? JSON.parse(text).validation.body.message
+            : JSON.parse(text).message
+      });
+    });
   }
   //авторизация
   login(email, password) {
     return fetch(`${this._url}/signin`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password })
     }).then((res) => this._result(res));
   }
   cd;
@@ -26,7 +33,7 @@ class Auth {
     return fetch(`${this._url}/signup`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password })
     }).then((res) => this._result(res));
   }
   //токен
@@ -36,8 +43,8 @@ class Auth {
       //headers: this._headers,
       headers: {
         ...this._headers,
-        authorization: `Bearer ${token}`,
-      },
+        authorization: `Bearer ${token}`
+      }
     }).then((res) => this._result(res));
   }
 }
