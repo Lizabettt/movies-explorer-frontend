@@ -10,13 +10,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 364px);
     justify-content: center;
-    gap: 27px 24px;
+    gap: 32px 24px;
     margin-block: 0;
     padding-inline: 0;
 }
 
 .moviesCardList__btn-box {
-    padding-top: 78px;
+    padding-top: 68px;
     padding-bottom: 55px;
     display: flex;
     justify-content: center;
@@ -36,8 +36,7 @@
 @media screen and (max-width: 770px) {
     .moviesCardList__item {
         grid-template-columns: repeat(auto-fit, 339px);
-        gap: 34px 30px;
-        height: 1143px;
+        gap: 37px 30px;
         overflow: hidden;
     }
 
@@ -64,7 +63,7 @@
 
     .moviesCardList__item {
         grid-template-columns: repeat(auto-fit, 300px);
-        gap: 15px;
+        gap: 13px 0;
         height: 1248px;
     }
 

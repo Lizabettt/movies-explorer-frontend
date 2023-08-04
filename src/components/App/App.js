@@ -38,7 +38,8 @@ export default function App() {
 
   const [serverError, setServerError] = useState([]);
   const [isMoviesError, setIsMoviesError] = useState(false);
-
+  const [isBlockedInput, setIsBlockedInput] = useState(false);
+  
   const location = useLocation();
 
   const mainApi = new MainApi({
@@ -87,30 +88,39 @@ export default function App() {
 
   //авторизация
   function handleLogin(dataLog) {
+    //для проверки блокировки инпута
+   // setTimeout(() => {
     auth
       .login(dataLog.email, dataLog.password)
       .then((res) => {
+        
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
+          setIsBlockedInput(true);
           navigate('/movies');
           setServerError([]);
         }
       })
+    
       .catch((err) => {
         console.log(err);
         setServerError(err);
       });
+    //}, 5000)
   }
 
   //регистрация
   function handleRegister(dataReg) {
+  //для проверки блокировки инпута
+   // setTimeout(() => {
     auth
       .register(dataReg.name, dataReg.email, dataReg.password)
       .then((data) => {
         if (data) {
           console.log(data);
           handleLogin(dataReg);
+          setIsBlockedInput(true)
           setServerError([]);
         }
       })
@@ -118,6 +128,7 @@ export default function App() {
         console.log(err);
         setServerError(err);
       });
+      //}, 5000)
   }
 
   //сверим токен и авторизацию
@@ -149,7 +160,7 @@ export default function App() {
     setLoggedIn(false);
     localStorage.clear();
 
-    navigate('/signin');
+    navigate('/');
   }
 
   useEffect(() => {
@@ -204,18 +215,22 @@ export default function App() {
 
   //меняем инфо пользователя
   function handleUpdateUser(data) {
+    //для проверки блокировки инпута
+   // setTimeout(() => {
     mainApi
       .changeUserData(data)
       .then((data) => {
         console.log(data);
         setCurrentUser(data);
         setRequestCompleted(true);
+        setIsBlockedInput(true)
       })
       .catch((err) => {
         console.log(err);
         setServerError(err);
         setRequestCompleted(false);
       });
+      //}, 5000)
   }
   // открыть бургер
   function handleOpenBurger() {
@@ -240,6 +255,8 @@ export default function App() {
                 loggedIn={loggedIn}
                 onLogin={handleLogin}
                 apiErrorMessage={serverError}
+                isBlockedInput={isBlockedInput}
+                setIsBlockedInput={setIsBlockedInput}
               />
             }
           />
@@ -250,10 +267,12 @@ export default function App() {
                 loggedIn={loggedIn}
                 onRegister={handleRegister}
                 apiErrorMessage={serverError}
+                isBlockedInput={isBlockedInput}
               />
             }
           />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*"  element={<NotFound/>} 
+          />
           <Route
             path="/movies"
             element={
@@ -290,6 +309,7 @@ export default function App() {
                 onUpdateUser={handleUpdateUser}
                 onClose={handleExit}
                 isRequestCompleted={isRequestCompleted}
+                isBlockedInput={isBlockedInput}
               />
             }
           />

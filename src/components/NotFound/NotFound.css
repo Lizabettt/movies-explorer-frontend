@@ -31,10 +31,13 @@
 
 }
 
-.notFound__link {
+.notFound__btn {
     padding-top: 182px;
     text-decoration: none;
-    color: #3456F3
+    color: #3456F3;
+    background-color: white;
+    border: none;
+
 }
 
 @media screen and (max-width: 770px) {
@@ -58,7 +61,7 @@
         line-height: 15px;
     }
 
-    .notFound__link {
+    .notFound__btn {
         padding-top: 285px;
     }
 }

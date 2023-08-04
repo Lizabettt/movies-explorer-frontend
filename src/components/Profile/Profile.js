@@ -11,6 +11,7 @@ export default function Profile({
   onClose,
   isRequestCompleted,
   serverError,
+  isBlockedInput
 }) {
   const { values, setValues, handleChange, isValid } = useForm({});
 
@@ -65,6 +66,7 @@ export default function Profile({
             autoComplete='off'
             value={values.name || ''}
             onChange={handleChange}
+            disabled={isBlockedInput}
           />
         </div>
         <span className={`profile__input-help`}>
@@ -86,6 +88,7 @@ export default function Profile({
             autoComplete='off'
             value={values.email || ''}
             onChange={handleChange}
+            disabled={isBlockedInput}
           />
         </div>
         <span className={`profile__input-help`}>

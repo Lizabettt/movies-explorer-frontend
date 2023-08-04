@@ -16,7 +16,8 @@ export default function FormSign({
   handleSubmit,
   values,
   errors,
-  apiErrorMessage
+  apiErrorMessage,
+  disabled
 }) {
   const btnSubmitClassName = isValid
     ? 'formSign__btn'
@@ -34,7 +35,7 @@ export default function FormSign({
           method="post"
           noValidate
           onSubmit={handleSubmit}
-        >
+               >
           {children}
 
           <div className="formSign__items-inputs">
@@ -53,6 +54,7 @@ export default function FormSign({
               autoComplete="off"
               values={values.email || ''}
               onChange={onChange}
+              disabled={disabled}
             />
             <span className="formSign__input-help inputEmail-err">
               {validateEmail(values.email).message}
@@ -75,6 +77,7 @@ export default function FormSign({
               autoComplete="off"
               values={values.password || ''}
               onChange={onChange}
+              disabled={disabled}
             />
             <span className="formSign__input-help inputPassword-err">
               {errors.password}
