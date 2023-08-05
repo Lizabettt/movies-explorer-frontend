@@ -15,7 +15,7 @@ class Auth {
         errorText:
           JSON.parse(text).message === 'Validation failed'
             ? JSON.parse(text).validation.body.message
-            : JSON.parse(text).message
+            : JSON.parse(text).message,
       });
     });
   }
@@ -24,7 +24,7 @@ class Auth {
     return fetch(`${this._url}/signin`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     }).then((res) => this._result(res));
   }
   cd;
@@ -33,7 +33,7 @@ class Auth {
     return fetch(`${this._url}/signup`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name, email, password }),
     }).then((res) => this._result(res));
   }
   //токен
@@ -43,8 +43,8 @@ class Auth {
       //headers: this._headers,
       headers: {
         ...this._headers,
-        authorization: `Bearer ${token}`
-      }
+        authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._result(res));
   }
 }

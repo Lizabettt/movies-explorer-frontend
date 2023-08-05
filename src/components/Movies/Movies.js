@@ -10,7 +10,7 @@ export default function Movies({
   moviesError,
   onMoviesLike,
   onMoviesDelete,
-  isLoadingMovies
+  isLoadingMovies,
 }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
@@ -133,7 +133,7 @@ export default function Movies({
   }, [faindMovies, checkboxLocal, inputValueLocal]);
 
   return (
-    <section className="movies">
+    <section className='movies'>
       <SearchForm
         getMovies={getMovies}
         onFilterMovies={handleFilterMovies}
@@ -144,13 +144,13 @@ export default function Movies({
         isLoadingMovies={isLoadingMovies}
       />
       {errorApi ? (
-        <p className="movies__errorApi error">
+        <p className='movies__errorApi error'>
           Ошибка сервера. Попробуйте еще раз позже.
         </p>
       ) : isLoadingMovies ? (
         <Preloader />
       ) : error ? (
-        <p className="movies__error error"> Ничего не найдено</p>
+        <p className='movies__error error'> Ничего не найдено</p>
       ) : (
         <MoviesCardList
           movies={renderMovies}
@@ -160,12 +160,12 @@ export default function Movies({
           moviesError={moviesError}
         />
       )}
-      <div className="moviesCardList__btn-box">
+      <div className='moviesCardList__btn-box'>
         {filteredMovies.length > renderMovies.length ? (
           <button
-            className="moviesCardList__btn btn"
+            className='moviesCardList__btn btn'
             onClick={handleClickButtonMore}
-            type="button"
+            type='button'
           >
             Ещё
           </button>

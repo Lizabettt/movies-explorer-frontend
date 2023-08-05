@@ -51,7 +51,7 @@ export default function SavedMovies({ savedMovies, onMoviesDelete }) {
   }, [savedMovies]);
 
   return (
-    <section className="savedMovies">
+    <section className='savedMovies'>
       <SearchForm
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
@@ -65,7 +65,7 @@ export default function SavedMovies({ savedMovies, onMoviesDelete }) {
           onMoviesDelete={onMoviesDelete}
         />
       ) : (
-        error && <p className="savedMovies__error error"> Ничего не найдено</p>
+        error && <p className='savedMovies__error error'> Ничего не найдено</p>
       )}
     </section>
   );

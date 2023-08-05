@@ -9,7 +9,7 @@ export default function SearchForm({
   setInputValueText,
   inputValueText,
   getMovies,
-  isLoadingMovies
+  isLoadingMovies,
 }) {
   const [inputError, setInputError] = useState('');
   const beatfilmMovies = localStorage.getItem('movies');
@@ -37,24 +37,24 @@ export default function SearchForm({
   }
   return (
     <>
-      <form className="searchForm" onSubmit={handleSubmit} noValidate>
-        <div className="searchForm__box">
-          <div className="searchForm__input-box">
+      <form className='searchForm' onSubmit={handleSubmit} noValidate>
+        <div className='searchForm__box'>
+          <div className='searchForm__input-box'>
             <input
-              className="searchForm__input"
-              type="text"
-              name="search"
-              placeholder="Фильм"
-              minLength="2"
-              maxLength="30"
-              id="search"
+              className='searchForm__input'
+              type='text'
+              name='search'
+              placeholder='Фильм'
+              minLength='2'
+              maxLength='30'
+              id='search'
               required
               value={inputValueText || ''}
               onChange={handleInputChange}
             />
-            <button className="searchForm__btn" type="submit"></button>
+            <button className='searchForm__btn' type='submit'></button>
           </div>
-          <span className="searchForm__line"></span>
+          <span className='searchForm__line'></span>
           <FilterCheckbox
             isChecked={checkedCheckbox}
             checkboxChange={onCheckboxChange}

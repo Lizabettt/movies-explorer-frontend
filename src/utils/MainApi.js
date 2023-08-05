@@ -16,7 +16,7 @@ export default class MainApi {
         errorText:
           JSON.parse(text).message === 'Validation failed'
             ? JSON.parse(text).validation.body.message
-            : JSON.parse(text).message
+            : JSON.parse(text).message,
       });
     });
   }
@@ -25,7 +25,7 @@ export default class MainApi {
   getUserData() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._result(res));
   }
 
@@ -33,7 +33,7 @@ export default class MainApi {
   getSavedMovies() {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._result(res));
   }
 
@@ -55,8 +55,8 @@ export default class MainApi {
         image: BEATFILM_URL + data.image.url,
         thumbnail: BEATFILM_URL + data.image.formats.thumbnail.url,
         movieId: data.id,
-        owner: data.user
-      })
+        owner: data.user,
+      }),
     }).then((res) => this._result(res));
   }
 
@@ -64,7 +64,7 @@ export default class MainApi {
   deleteMovie(idMovie) {
     return fetch(`${this._url}/movies/${idMovie}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._result(res));
   }
 
@@ -75,8 +75,8 @@ export default class MainApi {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        email: data.email
-      })
+        email: data.email,
+      }),
     }).then((res) => this._result(res));
   }
 }

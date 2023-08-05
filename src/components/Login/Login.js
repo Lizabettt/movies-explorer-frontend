@@ -8,7 +8,7 @@ export default function Login({
   onLogin,
   loggedIn,
   apiErrorMessage,
-  isBlockedInput
+  isBlockedInput,
 }) {
   const { values, setValues, handleChange, errors, isValid } = useForm({});
   const navigate = useNavigate();
@@ -29,13 +29,13 @@ export default function Login({
   }
   return (
     <FormSign
-      namePage="login"
-      title="Рады видеть!"
-      btnText="Войти"
-      nameColor="login"
-      question="Ещё не зарегистрированы?"
-      link="/signup"
-      linkAfterBtn="Регистрация"
+      namePage='login'
+      title='Рады видеть!'
+      btnText='Войти'
+      nameColor='login'
+      question='Ещё не зарегистрированы?'
+      link='/signup'
+      linkAfterBtn='Регистрация'
       handleSubmit={handleSubmit}
       onChange={handleChange}
       isValid={isValid}

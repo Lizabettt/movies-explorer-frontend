@@ -54,20 +54,20 @@ export default function App() {
     url: BACKEND_URL,
     headers: {
       'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`
-    }
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
   });
   const movieApi = new MovieApi({
     url: BEATFILM_MOVIES_URL,
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   });
   const auth = new Auth({
     url: BACKEND_URL,
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   });
 
   const getMoviesFromApi = () => {
@@ -257,11 +257,11 @@ export default function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <Header isOpen={handleOpenBurger} loggedIn={loggedIn} />
 
-      <main className="main">
+      <main className='main'>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path='/' element={<Main />} />
           <Route
-            path="/signin"
+            path='/signin'
             element={
               <Login
                 loggedIn={loggedIn}
@@ -273,7 +273,7 @@ export default function App() {
             }
           />
           <Route
-            path="/signup"
+            path='/signup'
             element={
               <Register
                 loggedIn={loggedIn}
@@ -283,9 +283,9 @@ export default function App() {
               />
             }
           />
-          <Route path="*" element={<NotFound loggedIn={loggedIn} />} />
+          <Route path='*' element={<NotFound loggedIn={loggedIn} />} />
           <Route
-            path="/movies"
+            path='/movies'
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
@@ -301,7 +301,7 @@ export default function App() {
             }
           />
           <Route
-            path="/saved-movies"
+            path='/saved-movies'
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
@@ -314,7 +314,7 @@ export default function App() {
             }
           />
           <Route
-            path="/profile"
+            path='/profile'
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
