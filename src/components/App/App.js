@@ -28,18 +28,27 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(
+    JSON.parse(localStorage.getItem('movies')) || []
+  );
+
   const [savedMovies, setSavedMovies] = useState([]);
 
   const [isClickBurger, setClickBurger] = useState(false);
-  const navigate = useNavigate();
 
   const [isRequestCompleted, setRequestCompleted] = useState(false);
 
-  const [serverError, setServerError] = useState({});
+  const [serverError, setServerError] = useState([]);
   const [isMoviesError, setIsMoviesError] = useState(false);
+  const [isBlockedInput, setIsBlockedInput] = useState(false);
+  const [isLoadingMovies, setIsLoadingMovies] = useState(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    setServerError([]);
+  }, [location.pathname]);
 
   const mainApi = new MainApi({
     url: BACKEND_URL,
@@ -61,20 +70,27 @@ export default function App() {
     },
   });
 
+  const getMoviesFromApi = () => {
+    setIsLoadingMovies(true);
+
+    movieApi
+      .getAllMovies()
+      .then((data) => {
+        setMovies(data);
+        setIsLoadingMovies(false);
+        localStorage.setItem('movies', JSON.stringify(data));
+      })
+      .catch((err) => console.log(err));
+  };
+
   //грузим фильмы и инфо пользователя с сервера
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([
-        mainApi.getUserData(),
-        mainApi.getSavedMovies(),
-        movieApi.getAllMovies(),
-      ])
-        .then(([user, savedMovies, movies]) => {
+      Promise.all([mainApi.getUserData(), mainApi.getSavedMovies()])
+        .then(([user, savedMovies]) => {
           setCurrentUser(user);
           setSavedMovies(savedMovies);
-          setMovies(movies);
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-
           setIsMoviesError(false);
         })
         .catch((err) => {
@@ -87,35 +103,46 @@ export default function App() {
 
   //авторизация
   function handleLogin(dataLog) {
+    //для проверки блокировки инпута
+    // setTimeout(() => {
     auth
       .login(dataLog.email, dataLog.password)
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
+          setIsBlockedInput(true);
           navigate('/movies');
+          setServerError([]);
         }
       })
+
       .catch((err) => {
         console.log(err);
         setServerError(err);
       });
+    //}, 5000)
   }
 
   //регистрация
   function handleRegister(dataReg) {
+    //для проверки блокировки инпута
+    // setTimeout(() => {
     auth
       .register(dataReg.name, dataReg.email, dataReg.password)
       .then((data) => {
         if (data) {
-          console.log('reg');
-          navigate('/signin');
+          console.log(data);
+          handleLogin(dataReg);
+          setIsBlockedInput(true);
+          setServerError([]);
         }
       })
       .catch((err) => {
         console.log(err);
         setServerError(err);
       });
+    //}, 5000)
   }
 
   //сверим токен и авторизацию
@@ -128,7 +155,6 @@ export default function App() {
           if (res) {
             setLoggedIn(true);
             navigate(location.pathname);
-            console.log('token');
           }
         })
         .catch((err) => {
@@ -140,14 +166,14 @@ export default function App() {
   useEffect(() => {
     handleToken();
     // eslint-disable-next-line
-  }, [loggedIn]);
+  }, []);
 
   //выход
   function handleExit() {
-    setLoggedIn(false);
     localStorage.clear();
-
-    navigate('/signin');
+    navigate('/');
+    setLoggedIn(false);
+    setIsBlockedInput(false);
   }
 
   useEffect(() => {
@@ -202,18 +228,21 @@ export default function App() {
 
   //меняем инфо пользователя
   function handleUpdateUser(data) {
+    //для проверки блокировки инпута
+    // setTimeout(() => {
     mainApi
       .changeUserData(data)
       .then((data) => {
-        console.log(data);
         setCurrentUser(data);
         setRequestCompleted(true);
+        setIsBlockedInput(true);
       })
       .catch((err) => {
         console.log(err);
         setServerError(err);
         setRequestCompleted(false);
       });
+    //}, 5000)
   }
   // открыть бургер
   function handleOpenBurger() {
@@ -227,6 +256,7 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isOpen={handleOpenBurger} loggedIn={loggedIn} />
+
       <main className='main'>
         <Routes>
           <Route path='/' element={<Main />} />
@@ -236,7 +266,9 @@ export default function App() {
               <Login
                 loggedIn={loggedIn}
                 onLogin={handleLogin}
-                serverError={serverError}
+                apiErrorMessage={serverError}
+                isBlockedInput={isBlockedInput}
+                setIsBlockedInput={setIsBlockedInput}
               />
             }
           />
@@ -246,22 +278,25 @@ export default function App() {
               <Register
                 loggedIn={loggedIn}
                 onRegister={handleRegister}
-                serverError={serverError}
+                apiErrorMessage={serverError}
+                isBlockedInput={isBlockedInput}
               />
             }
           />
-          <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NotFound loggedIn={loggedIn} />} />
           <Route
             path='/movies'
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
                 element={Movies}
+                getMovies={getMoviesFromApi}
                 movies={movies}
                 savedMovies={savedMovies}
                 moviesError={isMoviesError}
                 onMoviesLike={handleMoviesSave}
                 onMoviesDelete={handleMoviesDelete}
+                isLoadingMovies={isLoadingMovies}
               />
             }
           />
@@ -287,6 +322,7 @@ export default function App() {
                 onUpdateUser={handleUpdateUser}
                 onClose={handleExit}
                 isRequestCompleted={isRequestCompleted}
+                isBlockedInput={isBlockedInput}
               />
             }
           />

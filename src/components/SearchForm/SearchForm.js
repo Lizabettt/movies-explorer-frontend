@@ -1,6 +1,6 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SearchForm({
   onFilterMovies,
@@ -8,13 +8,20 @@ export default function SearchForm({
   checkedCheckbox,
   setInputValueText,
   inputValueText,
+  getMovies,
+  isLoadingMovies,
 }) {
   const [inputError, setInputError] = useState('');
+  const beatfilmMovies = localStorage.getItem('movies');
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
     if (inputValueText) {
+      if (!beatfilmMovies || JSON.parse(beatfilmMovies).length === 0) {
+        getMovies();
+      }
+
       setInputError('');
     } else if (!inputValueText) {
       setInputError('Вы ничего не ввели для поиска');

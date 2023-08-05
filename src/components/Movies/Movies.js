@@ -4,16 +4,17 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 import Preloader from '../Preloader/Preloader';
 
 export default function Movies({
+  getMovies,
   movies,
   savedMovies,
   moviesError,
   onMoviesLike,
   onMoviesDelete,
+  isLoadingMovies,
 }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
   const [inputValueText, setInputValueText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState(false);
   const [errorApi, setErrorApi] = useState(false);
@@ -32,15 +33,24 @@ export default function Movies({
     }
   }
 
+  useEffect(() => {
+    handleFilterMovies(inputValueText, checkedCheckbox);
+  }, [movies]);
+
   //фильтрация
   function handleFilterMovies(inputValue, isCheckedState) {
     localStorage.setItem('inputValueLocal', JSON.stringify(inputValue));
     localStorage.setItem('checkboxLocal', JSON.stringify(isCheckedState));
 
-    setError(false);
-    setIsLoading(true);
+    if (!movies.length) {
+      return;
+    } else {
+      setError(false);
 
-    setTimeout(() => {
+      // if (!filteredMovies.length) {
+      //   setIsLoading(true);
+      // }
+
       let newFilteredArray = [];
       // если чекбокс включен
       if (isCheckedState) {
@@ -65,6 +75,7 @@ export default function Movies({
         setFilteredMovies(newFilteredArray);
         localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
       }
+
       if (moviesError) {
         setErrorApi(true);
       } else if (!moviesError) {
@@ -73,9 +84,12 @@ export default function Movies({
       if (newFilteredArray.length === 0) {
         setError(true);
       }
-      setIsLoading(false);
-    }, 2000);
+    }
   }
+
+  useEffect(() => {
+    setNextMovies(0);
+  }, [filteredMovies]);
 
   //рендер
   const renderMovies = useMemo(() => {
@@ -87,7 +101,6 @@ export default function Movies({
 
   //кнопка
   const handleClickButtonMore = () => {
-    console.log('screenWidth', screenWidth);
     if (screenWidth < 1280) {
       setNextMovies((prev) => prev + 2);
     } else if (screenWidth >= 1280) {
@@ -122,17 +135,19 @@ export default function Movies({
   return (
     <section className='movies'>
       <SearchForm
+        getMovies={getMovies}
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
         checkedCheckbox={checkedCheckbox}
         setInputValueText={setInputValueText}
         inputValueText={inputValueText}
+        isLoadingMovies={isLoadingMovies}
       />
       {errorApi ? (
         <p className='movies__errorApi error'>
           Ошибка сервера. Попробуйте еще раз позже.
         </p>
-      ) : isLoading ? (
+      ) : isLoadingMovies ? (
         <Preloader />
       ) : error ? (
         <p className='movies__error error'> Ничего не найдено</p>

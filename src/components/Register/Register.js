@@ -3,9 +3,22 @@ import FormSign from '../FormSign/FormSign';
 import useForm from '../../hooks/useFormAndValid';
 import { useEffect } from 'react';
 import { validateName } from '../../utils/validation';
+import { useNavigate } from 'react-router-dom';
 
-export default function Register({ onRegister }) {
+export default function Register({
+  onRegister,
+  loggedIn,
+  apiErrorMessage,
+  isBlockedInput,
+}) {
   const { values, setValues, handleChange, errors, isValid } = useForm({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/movies');
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     setValues({});
@@ -31,6 +44,8 @@ export default function Register({ onRegister }) {
       isValid={isValid}
       values={values}
       errors={errors}
+      apiErrorMessage={apiErrorMessage}
+      disabled={isBlockedInput}
     >
       <div className='formSign__items-inputs'>
         <label className='formSign__input-label' htmlFor='nameInput'>
@@ -48,6 +63,7 @@ export default function Register({ onRegister }) {
           autoComplete='off'
           value={values.name || ''}
           onChange={handleChange}
+          disabled={isBlockedInput}
         />
         <span className='formSign__input-help inputName-err'>
           {validateName(values.name).message}

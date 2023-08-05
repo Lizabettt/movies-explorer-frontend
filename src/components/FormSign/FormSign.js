@@ -2,6 +2,7 @@ import './FormSign.css';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 import { validateEmail } from '../../utils/validation';
+import { useEffect } from 'react';
 
 export default function FormSign({
   namePage,
@@ -16,11 +17,13 @@ export default function FormSign({
   handleSubmit,
   values,
   errors,
+  apiErrorMessage,
+  disabled,
 }) {
-
-  const btnSubmitClassName = isValid
-    ? 'formSign__btn'
-    : 'formSign__btn formSign__btn_disabled';
+  const btnSubmitClassName =
+    isValid && !validateEmail(values.email).invalid
+      ? 'formSign__btn'
+      : 'formSign__btn formSign__btn_disabled';
 
   return (
     <div className='formSign'>
@@ -50,9 +53,10 @@ export default function FormSign({
               minLength='2'
               maxLength='40'
               required
-              autoComplete='off'
+              // autoComplete="off"
               values={values.email || ''}
               onChange={onChange}
+              disabled={disabled}
             />
             <span className='formSign__input-help inputEmail-err'>
               {validateEmail(values.email).message}
@@ -72,9 +76,10 @@ export default function FormSign({
               minLength='2'
               maxLength='40'
               required
-              autoComplete='off'
+              // autoComplete="off"
               values={values.password || ''}
               onChange={onChange}
+              disabled={disabled}
             />
             <span className='formSign__input-help inputPassword-err'>
               {errors.password}
@@ -88,8 +93,18 @@ export default function FormSign({
             >
               {btnText}
             </button>
+            <span className='formSign__apiErrorMessage'>
+              {apiErrorMessage?.status === 409
+                ? 'Пользователь с такими данными уже зарегистрирован'
+                : ''}
+
+              {apiErrorMessage?.status === 401
+                ? 'Неверные почта или пароль'
+                : ''}
+            </span>
           </div>
         </form>
+
         <div className='formSign-afterBtn-box'>
           <p className='formSign__question'>{question}</p>
           <Link className='formSign__link' to={link}>
