@@ -20,9 +20,10 @@ export default function FormSign({
   apiErrorMessage,
   disabled
 }) {
-  const btnSubmitClassName = isValid
-    ? 'formSign__btn'
-    : 'formSign__btn formSign__btn_disabled';
+  const btnSubmitClassName =
+    isValid && !validateEmail(values.email).invalid
+      ? 'formSign__btn'
+      : 'formSign__btn formSign__btn_disabled';
 
   return (
     <div className="formSign">
@@ -52,7 +53,7 @@ export default function FormSign({
               minLength="2"
               maxLength="40"
               required
-              autoComplete="off"
+              // autoComplete="off"
               values={values.email || ''}
               onChange={onChange}
               disabled={disabled}
@@ -75,7 +76,7 @@ export default function FormSign({
               minLength="2"
               maxLength="40"
               required
-              autoComplete="off"
+              // autoComplete="off"
               values={values.password || ''}
               onChange={onChange}
               disabled={disabled}

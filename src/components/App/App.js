@@ -28,18 +28,22 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(
+    JSON.parse(localStorage.getItem('movies')) || []
+  );
+
   const [savedMovies, setSavedMovies] = useState([]);
 
   const [isClickBurger, setClickBurger] = useState(false);
-  const navigate = useNavigate();
 
   const [isRequestCompleted, setRequestCompleted] = useState(false);
 
   const [serverError, setServerError] = useState([]);
   const [isMoviesError, setIsMoviesError] = useState(false);
   const [isBlockedInput, setIsBlockedInput] = useState(false);
+  const [isLoadingMovies, setIsLoadingMovies] = useState(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -66,20 +70,27 @@ export default function App() {
     }
   });
 
+  const getMoviesFromApi = () => {
+    setIsLoadingMovies(true);
+
+    movieApi
+      .getAllMovies()
+      .then((data) => {
+        setMovies(data);
+        setIsLoadingMovies(false);
+        localStorage.setItem('movies', JSON.stringify(data));
+      })
+      .catch((err) => console.log(err));
+  };
+
   //грузим фильмы и инфо пользователя с сервера
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([
-        mainApi.getUserData(),
-        mainApi.getSavedMovies(),
-        movieApi.getAllMovies()
-      ])
-        .then(([user, savedMovies, movies]) => {
+      Promise.all([mainApi.getUserData(), mainApi.getSavedMovies()])
+        .then(([user, savedMovies]) => {
           setCurrentUser(user);
           setSavedMovies(savedMovies);
-          setMovies(movies);
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-
           setIsMoviesError(false);
         })
         .catch((err) => {
@@ -144,7 +155,6 @@ export default function App() {
           if (res) {
             setLoggedIn(true);
             navigate(location.pathname);
-            console.log('token');
           }
         })
         .catch((err) => {
@@ -160,10 +170,10 @@ export default function App() {
 
   //выход
   function handleExit() {
-    setLoggedIn(false);
     localStorage.clear();
-
     navigate('/');
+    setLoggedIn(false);
+    setIsBlockedInput(false);
   }
 
   useEffect(() => {
@@ -223,7 +233,6 @@ export default function App() {
     mainApi
       .changeUserData(data)
       .then((data) => {
-        console.log(data);
         setCurrentUser(data);
         setRequestCompleted(true);
         setIsBlockedInput(true);
@@ -274,18 +283,20 @@ export default function App() {
               />
             }
           />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound loggedIn={loggedIn} />} />
           <Route
             path="/movies"
             element={
               <ProtectedRouteElement
                 loggedIn={loggedIn}
                 element={Movies}
+                getMovies={getMoviesFromApi}
                 movies={movies}
                 savedMovies={savedMovies}
                 moviesError={isMoviesError}
                 onMoviesLike={handleMoviesSave}
                 onMoviesDelete={handleMoviesDelete}
+                isLoadingMovies={isLoadingMovies}
               />
             }
           />

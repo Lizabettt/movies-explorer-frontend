@@ -47,23 +47,23 @@ export default function Profile({
   }, [currentUser.name, currentUser.email, values.email, values.name]);
 
   return (
-    <div className='profile'>
-      <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
-      <form className='profile__form' onSubmit={handleSubmit} noValidate>
-        <div className='profile__items-inputs'>
-          <label className='profile__input-label' htmlFor='nameInput'>
+    <div className="profile">
+      <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+      <form className="profile__form" onSubmit={handleSubmit} noValidate>
+        <div className="profile__items-inputs">
+          <label className="profile__input-label" htmlFor="nameInput">
             Имя
           </label>
           <input
             className={`profile__item-input profile__item-input_type_name `}
-            id='nameInput'
-            type='text'
-            placeholder='Имя пользователя'
-            name='name'
-            minLength='2'
-            maxLength='40'
+            id="nameInput"
+            type="text"
+            placeholder="Имя пользователя"
+            name="name"
+            minLength="2"
+            maxLength="40"
             required
-            autoComplete='off'
+            autoComplete="off"
             value={values.name || ''}
             onChange={handleChange}
             disabled={isBlockedInput}
@@ -72,20 +72,20 @@ export default function Profile({
         <span className={`profile__input-help`}>
           {validateName(values.name).message}
         </span>
-        <div className='profile__items-inputs'>
-          <label className='profile__input-label' htmlFor='emailInput'>
+        <div className="profile__items-inputs">
+          <label className="profile__input-label" htmlFor="emailInput">
             E-mail
           </label>
           <input
             className={`profile__item-input profile__item-input_type_email `}
-            id='emailInput'
-            type='email'
-            placeholder='Введите e-mail'
-            name='email'
-            minLength='2'
-            maxLength='40'
+            id="emailInput"
+            type="email"
+            placeholder="Введите e-mail"
+            name="email"
+            minLength="2"
+            maxLength="40"
             required
-            autoComplete='off'
+            autoComplete="off"
             value={values.email || ''}
             onChange={handleChange}
             disabled={isBlockedInput}
@@ -111,11 +111,11 @@ export default function Profile({
             Упс... Ошибка сервера. Попробуйте позже!
           </span>
         )}
-        <div className='profile__buttons'>
+        <div className="profile__buttons">
           {isChangedInfo ? (
             <button
-              className='profile__btn profile__btn-profileSaved'
-              type='submit'
+              className="profile__btn profile__btn-profileSaved"
+              type="submit"
               disabled={
                 !isValid ||
                 validateEmail(values.email).invalid ||
@@ -127,8 +127,8 @@ export default function Profile({
           ) : (
             <>
               <button
-                className='profile__btn profile__btn-profileNotSaved'
-                type='button'
+                className="profile__btn profile__btn-profileNotSaved"
+                type="button"
                 onClick={handleBtnClickSubmit}
                 disabled={true}
               >
@@ -140,9 +140,9 @@ export default function Profile({
         </div>
 
         <Link
-          className='profile__btn profile__btn_type_exit'
-          type='button'
-          to={'/signin'}
+          className="profile__btn profile__btn_type_exit"
+          type="button"
+          to={'/'}
           onClick={onClose}
         >
           Выйти из аккаунта

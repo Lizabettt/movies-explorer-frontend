@@ -4,16 +4,17 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 import Preloader from '../Preloader/Preloader';
 
 export default function Movies({
+  getMovies,
   movies,
   savedMovies,
   moviesError,
   onMoviesLike,
-  onMoviesDelete
+  onMoviesDelete,
+  isLoadingMovies
 }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
   const [inputValueText, setInputValueText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState(false);
   const [errorApi, setErrorApi] = useState(false);
@@ -32,57 +33,58 @@ export default function Movies({
     }
   }
 
+  useEffect(() => {
+    handleFilterMovies(inputValueText, checkedCheckbox);
+  }, [movies]);
+
   //фильтрация
   function handleFilterMovies(inputValue, isCheckedState) {
     localStorage.setItem('inputValueLocal', JSON.stringify(inputValue));
     localStorage.setItem('checkboxLocal', JSON.stringify(isCheckedState));
 
-    setError(false);
+    if (!movies.length) {
+      return;
+    } else {
+      setError(false);
 
-    if (!filteredMovies.length) {
-      setIsLoading(true);
+      // if (!filteredMovies.length) {
+      //   setIsLoading(true);
+      // }
+
+      let newFilteredArray = [];
+      // если чекбокс включен
+      if (isCheckedState) {
+        newFilteredArray = movies.filter((movie) => {
+          return (
+            (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+              movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())) &&
+            movie.duration <= 40
+          );
+        });
+        setFilteredMovies(newFilteredArray);
+        localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
+      } else if (!isCheckedState) {
+        //если чекбокс выключен
+        newFilteredArray = movies.filter((movie) => {
+          return (
+            movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+            movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+          );
+        });
+
+        setFilteredMovies(newFilteredArray);
+        localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
+      }
+
+      if (moviesError) {
+        setErrorApi(true);
+      } else if (!moviesError) {
+        setErrorApi(false);
+      }
+      if (newFilteredArray.length === 0) {
+        setError(true);
+      }
     }
-
-    setTimeout(
-      () => {
-        let newFilteredArray = [];
-        // если чекбокс включен
-        if (isCheckedState) {
-          newFilteredArray = movies.filter((movie) => {
-            return (
-              (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
-                movie.nameEN
-                  .toLowerCase()
-                  .includes(inputValue.toLowerCase())) &&
-              movie.duration <= 40
-            );
-          });
-          setFilteredMovies(newFilteredArray);
-          localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
-        } else if (!isCheckedState) {
-          //если чекбокс выключен
-          newFilteredArray = movies.filter((movie) => {
-            return (
-              movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
-              movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
-            );
-          });
-
-          setFilteredMovies(newFilteredArray);
-          localStorage.setItem('faindMovies', JSON.stringify(newFilteredArray));
-        }
-        if (moviesError) {
-          setErrorApi(true);
-        } else if (!moviesError) {
-          setErrorApi(false);
-        }
-        if (newFilteredArray.length === 0) {
-          setError(true);
-        }
-        setIsLoading(false);
-      },
-      filteredMovies.length ? 0 : 300
-    );
   }
 
   useEffect(() => {
@@ -133,17 +135,19 @@ export default function Movies({
   return (
     <section className="movies">
       <SearchForm
+        getMovies={getMovies}
         onFilterMovies={handleFilterMovies}
         onCheckboxChange={handleCheckboxChange}
         checkedCheckbox={checkedCheckbox}
         setInputValueText={setInputValueText}
         inputValueText={inputValueText}
+        isLoadingMovies={isLoadingMovies}
       />
       {errorApi ? (
         <p className="movies__errorApi error">
           Ошибка сервера. Попробуйте еще раз позже.
         </p>
-      ) : isLoading ? (
+      ) : isLoadingMovies ? (
         <Preloader />
       ) : error ? (
         <p className="movies__error error"> Ничего не найдено</p>
